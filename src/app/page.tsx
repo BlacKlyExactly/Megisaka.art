@@ -1,113 +1,121 @@
-import Image from 'next/image'
+'use client';
 
-export default function Home() {
+import { useLayoutEffect, useRef } from 'react';
+import gsap, { Circ } from 'gsap';
+import SplitType from 'split-type';
+
+import HeroSlider from '@/components/HeroSlider';
+import Button from '@/components/ui/Button';
+import Sprinkles from '@/components/ui/decorations/Sprinkles';
+import Headline from '@/components/ui/typography/Headline';
+import Text from '@/components/ui/typography/Text';
+import Work from '@/components/work/Work';
+import WorkShowcase from '@/components/work/WorkShowcase';
+
+const Home = () => {
+  const headerContentRef = useRef<HTMLDivElement>(null);
+  const sprinklesRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const handleResize = () => {
+      if (!headerContentRef.current || !sprinklesRef.current) return;
+
+      if (window.innerWidth >= 1024) {
+        const { chars } = new SplitType('.split');
+
+        const tl = gsap.timeline();
+
+        tl.set(headerContentRef.current, { visibility: 'visible' })
+          .set(sprinklesRef.current, { visibility: 'visible' })
+          .set(chars, { visibility: 'visible' })
+          .to(chars, { y: 0, stagger: 0.1, ease: Circ.easeOut })
+          .from(sprinklesRef.current, { y: -5, opacity: 0 })
+          .to(
+            headerContentRef.current.children[0].children[0],
+            {
+              y: 0,
+              stagger: 0.2,
+              ease: Circ.easeOut,
+            },
+            0,
+          )
+          .to(
+            headerContentRef.current.children[1].children[0],
+            {
+              y: 0,
+              stagger: 0.2,
+              ease: Circ.easeOut,
+            },
+            0,
+          )
+          .from(headerContentRef.current.children[2], { opacity: 0 }, 0);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
+    <>
+      <header className="mt-4 flex justify-center flex-col lg:flex-row lg:h-screen lg:items-center lg:px-page lg:gap-24 lg:justify-between lg:mt-16 overflow-hidden relative">
+        <p className="text-[128px] font-semibold opacity-[0.025] -top-6 absolute left-16 z-[-1] lg:hidden">
+          ART IST
         </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+        <p className="split hidden text-[403px] tracking-tighter font-semibold opacity-[0.025] -bottom-8 absolute left-0 z-[-1] lg:block w-full whitespace-nowrap clip-path invisible">
+          ARTIST
+        </p>
+        <div
+          ref={sprinklesRef}
+          className="absolute bottom-0 left-0 lg:invisible"
+        >
+          <Sprinkles className="absolute -bottom-0 -left-32 hidden lg:block" />
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+        <div
+          className="px-page-mobile text-center lg:text-left lg:px-0 lg:w-[44%] lg:invisible"
+          ref={headerContentRef}
+        >
+          <div className="clip-path-full">
+            <Headline className="lg:translate-y-full">Megisaka</Headline>
+          </div>
+          <div className="clip-path-full">
+            <Text
+              size="heading"
+              className="mt-4 !font-light lg:w-[75%] lg:mt-8 lg:-translate-y-full"
+            >
+              Click/Tap to edit me. That Biff, what a character. Always trying
+              to get away with something. Click/Tap to edit me. That Biff, what
+              a character.
+            </Text>
+          </div>
+          <Button className="mt-8 lg:mt-11">NEXT</Button>
+        </div>
+        <HeroSlider className="mt-11 lg:mt-0" />
+      </header>
+      <main className="mt-24 text-center lg:mt-16 lg:text-left">
+        <div className="px-page-mobile lg:px-page">
+          <Headline heading="h2">Latest work</Headline>
+          <Text size="main" className="mt-4 lg:w-[45%] lg:mt-8">
+            Click/Tap to edit me. That Biff, what a character. Always trying to
+            get away with something. Click/Tap to edit me. That Biff, what a
+            character. Always trying to get away with something.
+          </Text>
+        </div>
+        <WorkShowcase
+          className="mt-10"
+          works={[
+            { title: 'Megura', type: 'VTuber', image: '/image1.png' },
+            { title: 'Megura1', type: 'VTuber', image: '/image2.png' },
+            { title: 'Megura2', type: 'VTuber', image: '/image3.png' },
+          ]}
         />
-      </div>
+      </main>
+    </>
+  );
+};
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+export default Home;
