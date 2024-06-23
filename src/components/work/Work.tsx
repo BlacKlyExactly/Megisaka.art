@@ -51,7 +51,7 @@ const Work = ({ image, title, type, className }: WorkProps) => {
         className="hidden w-full h-full bg-crimson bg-opacity-75 relative z-[1] p-6 flex-col justify-end gap-2 opacity-0 lg:flex"
         ref={infoRef}
       >
-        <div className="clip-path-full">
+        <div className="clip-path-full pointer-events-none">
           <Headline
             heading="h3"
             className="!text-light pointer-events-none translate-y-full"
@@ -59,7 +59,7 @@ const Work = ({ image, title, type, className }: WorkProps) => {
             {title}
           </Headline>
         </div>
-        <div className="clip-path-full">
+        <div className="clip-path-full pointer-events-none">
           <p className=" text-xl font-bold pointer-events-none -translate-y-full">
             {type}
           </p>

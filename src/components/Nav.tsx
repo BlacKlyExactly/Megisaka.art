@@ -9,6 +9,7 @@ import Language from './ui/icons/Language';
 import Text from './ui/typography/Text';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/utils/cn';
+import Image from 'next/image';
 
 const selects = [
   { display: 'Home', href: '/' },
@@ -69,7 +70,15 @@ const Nav = () => {
       ref={navRef}
     >
       <Link href="/">
-        <Text size="navHome">Megisaka</Text>
+        {/* <Text size="navHome">Megisaka</Text> */}
+        <Image
+          alt="Megisaka"
+          src="/images/logo.png"
+          width={128}
+          height={35}
+          className="aspect-[1407/384] w-32"
+          priority
+        />
       </Link>
       <ul className="flex gap-6 items-center justify-center lg:gap-12">
         {selects.map(({ display, href }) => (
