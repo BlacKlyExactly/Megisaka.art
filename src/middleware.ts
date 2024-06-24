@@ -14,7 +14,12 @@ export function middleware(request: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
 
-  if (pathnameHasLocale || pathname.startsWith('/fonts')) return;
+  if (
+    pathnameHasLocale ||
+    pathname.startsWith('/fonts') ||
+    pathname.startsWith('/images')
+  )
+    return;
 
   const locale = match(languages, locales, defaultLocale);
 
