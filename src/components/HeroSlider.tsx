@@ -13,7 +13,11 @@ import useDetectSwipeDirection, {
 } from '@/hooks/useDetectSwipeDirection';
 import Sprinkles from './ui/decorations/Sprinkles';
 
-const slides = ['/image2.png', '/image3.png', '/image1.png'];
+const slides = [
+  '/images/image2.png',
+  '/images/image3.png',
+  '/images/image1.png',
+];
 
 const HeroSlider = ({ className }: { className?: string }) => {
   const [slide, setSlide] = useState(0);
