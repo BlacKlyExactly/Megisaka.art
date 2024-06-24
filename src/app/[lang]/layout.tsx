@@ -1,9 +1,10 @@
-import './globals.css';
+import '../globals.css';
 import type { Metadata } from 'next';
 
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import AnimatedCursor from '@/components/AnimatedCursor';
+import { cn } from '@/utils/cn';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,7 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-dark text-light font-spartan overflow-x-hidden relative">
+      <body
+        className={cn(
+          'bg-dark text-light font-spartan overflow-x-hidden relative',
+        )}
+      >
         <AnimatedCursor />
 
         <div className="max-w-[1620px] w-screen overflow-hidden mx-auto relative pb-28 lg:pb-36">

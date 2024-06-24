@@ -1,7 +1,7 @@
 'use client';
 
 import { useLayoutEffect, useRef } from 'react';
-import gsap, { Circ } from 'gsap';
+import gsap, { Circ, Power2 } from 'gsap';
 import SplitType from 'split-type';
 
 import HeroSlider from '@/components/HeroSlider';
@@ -9,8 +9,8 @@ import Button from '@/components/ui/Button';
 import Sprinkles from '@/components/ui/decorations/Sprinkles';
 import Headline from '@/components/ui/typography/Headline';
 import Text from '@/components/ui/typography/Text';
-import Work from '@/components/work/Work';
 import WorkShowcase from '@/components/work/WorkShowcase';
+import SectionContent from '@/components/section/SectionContent';
 
 const Home = () => {
   const headerContentRef = useRef<HTMLDivElement>(null);
@@ -33,6 +33,7 @@ const Home = () => {
           .to(
             headerContentRef.current.children[0].children[0],
             {
+              delay: 0.3,
               y: 0,
               stagger: 0.2,
               ease: Circ.easeOut,
@@ -42,13 +43,19 @@ const Home = () => {
           .to(
             headerContentRef.current.children[1].children[0],
             {
+              delay: 0.3,
+
               y: 0,
               stagger: 0.2,
               ease: Circ.easeOut,
             },
             0,
           )
-          .from(headerContentRef.current.children[2], { opacity: 0 }, 0);
+          .from(
+            headerContentRef.current.children[2],
+            { opacity: 0, delay: 0.3 },
+            0,
+          );
       }
     };
 
@@ -59,6 +66,15 @@ const Home = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const scrollToLatest = () =>
+    gsap.to(window, {
+      ease: Power2.easeOut,
+      scrollTo: {
+        offsetY: 200,
+        y: '#latest',
+      },
+    });
 
   return (
     <>
@@ -92,27 +108,28 @@ const Home = () => {
               a character.
             </Text>
           </div>
-          <Button className="mt-8 lg:mt-11">NEXT</Button>
+          <Button className="mt-8 lg:mt-11" onClick={scrollToLatest}>
+            NEXT
+          </Button>
         </div>
         <HeroSlider className="mt-11 lg:mt-0" />
       </header>
       <main className="mt-24 text-center lg:mt-16 lg:text-left">
-        <div className="px-page-mobile lg:px-page">
-          <Headline heading="h2">Latest work</Headline>
-          <Text size="main" className="mt-4 lg:w-[45%] lg:mt-8">
+        <section id="latest">
+          <SectionContent title="Latest work">
             Click/Tap to edit me. That Biff, what a character. Always trying to
             get away with something. Click/Tap to edit me. That Biff, what a
             character. Always trying to get away with something.
-          </Text>
-        </div>
-        <WorkShowcase
-          className="mt-10"
-          works={[
-            { title: 'Megura', type: 'VTuber', image: '/image1.png' },
-            { title: 'Megura1', type: 'VTuber', image: '/image2.png' },
-            { title: 'Megura2', type: 'VTuber', image: '/image3.png' },
-          ]}
-        />
+          </SectionContent>
+          <WorkShowcase
+            className="mt-10"
+            works={[
+              { title: 'Megura', type: 'VTuber', image: '/image1.png' },
+              { title: 'Megura1', type: 'VTuber', image: '/image2.png' },
+              { title: 'Megura2', type: 'VTuber', image: '/image3.png' },
+            ]}
+          />
+        </section>
       </main>
     </>
   );

@@ -13,7 +13,7 @@ import Image from 'next/image';
 
 const selects = [
   { display: 'Home', href: '/' },
-  { display: 'Portfolio', href: '#' },
+  { display: 'Portfolio', href: '/portfolio' },
   { display: 'Commisions', href: '#' },
   { display: 'About', href: '#' },
   { display: 'Contact', href: '#' },

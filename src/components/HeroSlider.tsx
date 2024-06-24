@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import gsap, { Expo, Circ } from 'gsap';
+import gsap, { Expo } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 gsap.registerPlugin(ScrollToPlugin);
@@ -92,7 +92,7 @@ const HeroSlider = ({ className }: { className?: string }) => {
 
   return (
     <div
-      className={cn('w-full lg:w-[612px] relative lg:invisible', className)}
+      className={cn('w-full lg:max-w-[512px] relative lg:invisible', className)}
       ref={containerRef}
     >
       <Sprinkles className="absolute -scale-50 -top-60 right-10 lg:-top-20 lg:-left-24 lg:right-auto z-[-1] lg:scale-100" />

@@ -10,7 +10,8 @@ export const textVariants = cva(
       size: {
         nav: '!leading-none !tracking-normal',
         main: 'font-light text-xs lg:text-sm lg:font-normal',
-        heading: 'text-[0.938rem] lg:text-base !leading-[200%] font-light',
+        heading:
+          'text-[0.938rem] lg:text-base !leading-[200%] lg:!leading-[230%] font-light',
         headingButton:
           'text-[0.85rem] mt-[4px] font-bold !leading-none lg:text-base lg:mt-[2px]',
         footer: '!leading-none !tracking-normal text-sm !font-light',

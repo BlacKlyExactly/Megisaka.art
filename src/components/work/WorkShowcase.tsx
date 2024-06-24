@@ -1,15 +1,18 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap, { Expo } from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 import Work, { WorkProps } from './Work';
+import Headline from '../ui/typography/Headline';
+import Button from '../ui/Button';
 import { cn } from '@/utils/cn';
 import useDetectSwipeDirection, {
   Directions,
 } from '@/hooks/useDetectSwipeDirection';
-import Headline from '../ui/typography/Headline';
-import Button from '../ui/Button';
+
+gsap.registerPlugin(ScrollToPlugin);
 
 const WorkShowcase = ({ className, works }: WorkShowcaseProps) => {
   const [slide, setSlide] = useState(0);
