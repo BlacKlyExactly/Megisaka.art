@@ -41,7 +41,7 @@ const Commisions = ({ open }: CommisionsProps) => {
       {/* <Image src="/images/banner.png" alt="" width={675} height={74} /> */}
       <div className="clip-path-full">
         <Headline heading="h2" className="lg:translate-y-full">
-          Commisions
+          Commissions
         </Headline>
       </div>
       <div className="clip-path-full">
