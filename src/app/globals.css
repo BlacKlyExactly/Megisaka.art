@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  overflow-y: hidden;
+}
+
 *{
   cursor: none !important;
 }
@@ -98,4 +102,12 @@
 
 .char{
   transform: translateY(100%);
+}
+
+.scrollbar-thumb{
+  background: #f30637 !important;
+}
+
+.scrollbar-track{
+  background: #1f1f1f !important;
 }

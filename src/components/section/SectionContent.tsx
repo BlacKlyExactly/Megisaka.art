@@ -1,18 +1,49 @@
 'use client';
 
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useLayoutEffect, useRef } from 'react';
+import gsap, { Circ } from 'gsap';
 
 import Headline from '../ui/typography/Headline';
 import Text from '../ui/typography/Text';
+import useScrollShow from '@/hooks/useScrollShow';
 
-const SectionContent = ({ children, title }: SectionContentProps) => (
-  <div className="px-page-mobile lg:px-page">
-    <Headline heading="h2">{title}</Headline>
-    <Text size="main" className="mt-4 lg:w-[45%] lg:mt-8">
-      {children}
-    </Text>
-  </div>
-);
+const SectionContent = ({ children, title }: SectionContentProps) => {
+  const sectionContentRef = useRef<HTMLDivElement>(null);
+  const showed = useScrollShow(sectionContentRef);
+
+  useLayoutEffect(() => {
+    if (!sectionContentRef.current || !showed) return;
+
+    const [
+      {
+        children: [tiltleEl],
+      },
+      {
+        children: [textEl],
+      },
+    ] = sectionContentRef.current.children;
+
+    gsap.to([tiltleEl, textEl], { y: 0, ease: Circ.easeOut, delay: 0.2 });
+  }, [showed]);
+
+  return (
+    <div className="px-page-mobile lg:px-page" ref={sectionContentRef}>
+      <div className="clip-path-full">
+        <Headline heading="h2" className="lg:translate-y-full">
+          {title}
+        </Headline>
+      </div>
+      <div className="clip-path-full">
+        <Text
+          size="main"
+          className="mt-4 lg:w-[45%] lg:mt-8 lg:-translate-y-full"
+        >
+          {children}
+        </Text>
+      </div>
+    </div>
+  );
+};
 
 type SectionContentProps = PropsWithChildren<{
   title: string;

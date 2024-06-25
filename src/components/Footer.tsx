@@ -1,7 +1,7 @@
 import Text from './ui/typography/Text';
 
 const Footer = () => (
-  <footer className=" py-11 px-page-mobile w-full border-t border-white border-opacity-[0.12] flex flex-col justify-center items-center lg:px-page lg:flex-row lg:justify-between gap-8">
+  <footer className=" py-11 px-page-mobile w-full border-t border-white border-opacity-[0.12] flex flex-col justify-center items-center lg:px-page lg:flex-row lg:justify-between gap-8 mt-28 lg:mt-36">
     <div className=" space-y-4">
       <Text
         size="footer"

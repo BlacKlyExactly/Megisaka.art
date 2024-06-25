@@ -1,15 +1,16 @@
 'use client';
 
-import Link from 'next/link';
 import { useLayoutEffect, useRef } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import gsap, { Circ } from 'gsap';
 
 import Bars from './ui/icons/Bars';
 import Language from './ui/icons/Language';
 import Text from './ui/typography/Text';
-import { usePathname } from 'next/navigation';
+import TransitionLink from './page-transition/TransitionLink';
 import { cn } from '@/utils/cn';
-import Image from 'next/image';
 
 const selects = [
   { display: 'Home', href: '/' },
@@ -17,6 +18,7 @@ const selects = [
   { display: 'Commisions', href: '#' },
   { display: 'About', href: '#' },
   { display: 'Contact', href: '#' },
+  { display: 'TOS', href: '#' },
 ];
 
 const Nav = () => {
@@ -29,7 +31,7 @@ const Nav = () => {
       if (!navRef.current) return;
 
       if (window.innerWidth >= 1024) {
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({ delay: 0.6 });
 
         tl.set(navRef.current, { visibility: 'visible' })
           .set(navRef.current.children[0], { opacity: 0, y: -10 })
@@ -66,10 +68,10 @@ const Nav = () => {
 
   return (
     <nav
-      className="px-page-mobile py-9 flex justify-between w-full lg:w-[calc(min(100%,1620px)-178px)] lg:left-1/2 lg:-translate-x-1/2 lg:fixed lg:top-12 lg:px-9 lg:py-6 lg:border-[#1C1C1C] lg:border lg:rounded-full lg:bg-[#0C0A0A] lg:bg-opacity-60 lg:backdrop-blur-[80.5px] z-50 lg:invisible"
+      className="px-page-mobile py-6 flex justify-between w-full lg:w-[calc(min(100%,1620px)-178px)] lg:left-1/2 lg:-translate-x-1/2 lg:fixed lg:top-12 lg:px-9 lg:py-6 lg:border-[#1C1C1C] lg:border lg:rounded-full lg:bg-[#0C0A0A] lg:bg-opacity-60 lg:backdrop-blur-[80.5px] z-50 lg:invisible"
       ref={navRef}
     >
-      <Link href="/">
+      <TransitionLink href="/">
         {/* <Text size="navHome">Megisaka</Text> */}
         <Image
           alt="Megisaka"
@@ -79,20 +81,21 @@ const Nav = () => {
           className="aspect-[1407/384] w-32"
           priority
         />
-      </Link>
+      </TransitionLink>
       <ul className="flex gap-6 items-center justify-center lg:gap-12">
         {selects.map(({ display, href }) => (
           <li key={display} className="hidden lg:block">
-            <Link href={href}>
+            <TransitionLink href={href}>
               <Text
                 size="nav"
                 className={cn({
-                  'text-crimson font-bold': pathname === href,
+                  'text-crimson font-bold':
+                    pathname.split('/').splice(1).join('/') === href,
                 })}
               >
                 {display}
               </Text>
-            </Link>
+            </TransitionLink>
           </li>
         ))}
         <li>

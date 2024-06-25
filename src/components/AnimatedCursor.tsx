@@ -4,7 +4,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import gsap from 'gsap';
 
-const pointerTags = ['button', 'a', 'li', 'article'];
+const pointerTags = ['button', 'a', 'li', 'article', 'input'];
 
 const AnimatedCursor = () => {
   const [isPointing, setPointingState] = React.useState<boolean>();

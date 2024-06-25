@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap, { Expo } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
@@ -11,6 +11,7 @@ import { cn } from '@/utils/cn';
 import useDetectSwipeDirection, {
   Directions,
 } from '@/hooks/useDetectSwipeDirection';
+import useScrollShow from '@/hooks/useScrollShow';
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -19,6 +20,7 @@ const WorkShowcase = ({ className, works }: WorkShowcaseProps) => {
 
   const slidesRef = useRef<HTMLDivElement>(null);
 
+  const showed = useScrollShow(slidesRef);
   const direction = useDetectSwipeDirection(slidesRef);
 
   useEffect(() => {
@@ -41,6 +43,17 @@ const WorkShowcase = ({ className, works }: WorkShowcaseProps) => {
     direction === Directions.Left ? nextSlide() : prevSlide();
   }, [direction]);
 
+  useLayoutEffect(() => {
+    if (!showed || !slidesRef.current) return;
+
+    const tl = gsap.timeline({ delay: 0.2 });
+
+    tl.set(slidesRef.current.children, { visibility: 'visible' }).from(
+      slidesRef.current.children,
+      { opacity: 0, y: -30, stagger: 0.15, delay: 0.2 },
+    );
+  }, [showed]);
+
   const nextSlide = () =>
     setSlide((prev) => (prev + 1 > works.length - 1 ? 0 : prev + 1));
 
@@ -59,7 +72,7 @@ const WorkShowcase = ({ className, works }: WorkShowcaseProps) => {
           <Work
             {...work}
             key={work.title}
-            className="w-[calc(100vw-50px)] shrink-0 lg:w-full"
+            className="w-[calc(100vw-50px)] shrink-0 lg:w-full lg:invisible"
           />
         ))}
       </div>

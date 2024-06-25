@@ -4,6 +4,8 @@ import type { Metadata } from 'next';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import AnimatedCursor from '@/components/AnimatedCursor';
+import PageTransition from '@/components/page-transition/PageTransition';
+import SmoothScrollbar from '@/components/SmoothScrollbar';
 import { cn } from '@/utils/cn';
 
 export const metadata: Metadata = {
@@ -24,12 +26,16 @@ export default function RootLayout({
         )}
       >
         <AnimatedCursor />
+        <PageTransition />
+        <SmoothScrollbar />
+        <Nav />
 
-        <div className="max-w-[1620px] w-screen overflow-hidden mx-auto relative pb-28 lg:pb-36">
-          <Nav />
-          {children}
+        <div id="scrollbar" className="h-screen">
+          <div className="max-w-[1620px] w-screen overflow-hidden mx-auto relative ">
+            {children}
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </body>
     </html>
   );
