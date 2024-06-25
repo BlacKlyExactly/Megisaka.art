@@ -5,7 +5,7 @@ import Scrollbar from 'smooth-scrollbar';
 
 const SmoothScrollbar = () => {
   useEffect(() => {
-    Scrollbar.init(document.querySelector('#scrollbar')!, { damping: 0.035 });
+    Scrollbar.init(document.querySelector('#scrollbar')!, { damping: 0.05 });
   }, []);
 
   return null;
