@@ -60,7 +60,7 @@ const HamburgerMenu = ({ nav, lang }: HamburgerMenuProps) => {
           {selects.map(({ id, href }) => (
             <li key={id} className="hover:text-crimson transition-colors">
               <TransitionLink href={href} onClick={toggle}>
-                <Text size="nav">{getTranslatedText(nav[id], lang)}</Text>
+                <p className="text-base">{getTranslatedText(nav[id], lang)}</p>
               </TransitionLink>
             </li>
           ))}
