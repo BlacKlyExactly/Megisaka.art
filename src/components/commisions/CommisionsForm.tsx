@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useRef } from 'react';
+import { lazy, useLayoutEffect, useRef } from 'react';
 import gsap, { Circ } from 'gsap';
 
 import Button from '../ui/Button';
@@ -15,14 +15,17 @@ import Select, {
 } from '../ui/form/Select';
 import Textarea from '../ui/form/Textarea';
 import useScrollShow from '@/hooks/useScrollShow';
+import { CommisionsSection } from '@/sanity/requests';
+import { Language } from '@/utils/langPageProps';
+import { getTranslatedText } from '@/utils/getTranslatedText';
 
-const CommisionsForm = () => {
+const CommisionsForm = ({ form, lang }: CommissionsFormProps) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const showed = useScrollShow(formRef);
 
   useLayoutEffect(() => {
-    if (!showed || !formRef.current) return;
+    if (!showed || !formRef.current || window.innerWidth < 1024) return;
 
     const [inputs, button] = formRef.current.children;
 
@@ -38,23 +41,36 @@ const CommisionsForm = () => {
       .from(button, { opacity: 0, y: -40, ease: Circ.easeOut });
   }, [showed]);
 
+  const { name, email, artType, attachments, description, send } = form;
+
   return (
     <form className="w-full mt-5 flex flex-col gap-6 lg:mt-16" ref={formRef}>
       <div className="flex flex-col gap-8 lg:flex-row lg:invisible">
         <div className="flex gap-8 flex-col w-full">
           <div className="flex flex-col gap-2 lg:gap-3">
-            <Label className="w-fit">Name*</Label>
-            <Input placeholder="Irl or nickname" />
+            <Label className="w-fit">
+              {getTranslatedText(name.label, lang)}*
+            </Label>
+            <Input placeholder={getTranslatedText(name.placeholder, lang)} />
           </div>
           <div className="flex flex-col gap-2 lg:gap-3">
-            <Label className="w-fit">Email*</Label>
-            <Input type="email" placeholder="example@gmail.com" />
+            <Label className="w-fit">
+              {getTranslatedText(email.label, lang)}*
+            </Label>
+            <Input
+              type="email"
+              placeholder={getTranslatedText(email.placeholder, lang)}
+            />
           </div>
           <div className="flex flex-col gap-2 lg:gap-3">
-            <Label className="w-fit">Art type*</Label>
+            <Label className="w-fit">
+              {getTranslatedText(artType.label, lang)}*
+            </Label>
             <Select>
               <SelectTrigger>
-                <SelectValue placeholder="Select type" />
+                <SelectValue
+                  placeholder={getTranslatedText(artType.placeholder, lang)}
+                />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
@@ -75,7 +91,9 @@ const CommisionsForm = () => {
             </Select>
           </div>
           <div className="flex flex-col gap-2 lg:gap-3">
-            <Label className="w-fit">Attachments</Label>
+            <Label className="w-fit">
+              {getTranslatedText(attachments.label, lang)}
+            </Label>
             <Input
               type="file"
               className="text-xs pt-3 file:text-light file:text-xs"
@@ -85,16 +103,25 @@ const CommisionsForm = () => {
           </div>
         </div>
         <div className="flex flex-col gap-2 w-full lg:gap-3">
-          <Label className="w-fit">Description*</Label>
+          <Label className="w-fit">
+            {getTranslatedText(description.label, lang)}*
+          </Label>
           <Textarea
             className="resize-none h-[300px] lg:h-full"
-            placeholder="Describe everything in details"
+            placeholder={getTranslatedText(description.placeholder, lang)}
           />
         </div>
       </div>
-      <Button className="w-fit lg:ml-auto lg:invisible">Send</Button>
+      <Button className="w-fit lg:ml-auto lg:invisible">
+        {getTranslatedText(send, lang)}
+      </Button>
     </form>
   );
+};
+
+type CommissionsFormProps = {
+  form: CommisionsSection['form'];
+  lang?: Language;
 };
 
 export default CommisionsForm;

@@ -19,7 +19,7 @@ const config: Config = {
       },
       padding: {
         page: '125px',
-        'page-mobile': '25px',
+        'page-mobile': '24px',
       },
     },
   },

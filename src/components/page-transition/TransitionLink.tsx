@@ -4,12 +4,24 @@ import { usePathname, useRouter } from 'next/navigation';
 import { MouseEvent, PropsWithChildren } from 'react';
 import gsap, { Circ } from 'gsap';
 
-const TransitionLink = ({ href, children }: TransitionLinkProps) => {
+const TransitionLink = ({
+  href,
+  children,
+  className,
+  preserveLang,
+  onClick,
+}: TransitionLinkProps & { onClick?: () => any; preserveLang?: boolean }) => {
   const { push } = useRouter();
   const pathname = usePathname();
 
+  preserveLang ??= true;
+
   const handleTransition = (e: MouseEvent) => {
     e.preventDefault();
+
+    const lang = pathname.split('/')[1];
+
+    onClick && onClick();
 
     if (href === pathname) return;
 
@@ -27,11 +39,11 @@ const TransitionLink = ({ href, children }: TransitionLinkProps) => {
         delay: 0.1,
         ease: Circ.easeOut,
       })
-      .then(() => push(href));
+      .then(() => push(preserveLang ? `/${lang}/${href}` : href));
   };
 
   return (
-    <a href={href} onClick={handleTransition}>
+    <a href={href} onClick={handleTransition} className={className}>
       {children}
     </a>
   );

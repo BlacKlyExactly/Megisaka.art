@@ -2,19 +2,22 @@
 
 import { useRef, useLayoutEffect, useEffect, useState } from 'react';
 import SplitType from 'split-type';
-import gsap, { Circ, Power2 } from 'gsap';
+import gsap, { Circ } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import Scrollbar from 'smooth-scrollbar';
-
-gsap.registerPlugin(ScrollToPlugin);
 
 import HeroSlider from '../../HeroSlider';
 import Button from '../../ui/Button';
 import Sprinkles from '../../ui/decorations/Sprinkles';
 import Headline from '../../ui/typography/Headline';
 import Text from '../../ui/typography/Text';
+import { Home } from '@/sanity/requests';
+import { Language } from '@/utils/langPageProps';
+import { getTranslatedText } from '@/utils/getTranslatedText';
 
-const Header = () => {
+gsap.registerPlugin(ScrollToPlugin);
+
+const Header = ({ header, lang, sliderImages }: HeaderProps) => {
   const [scrollbar, setScrollbar] = useState<Scrollbar>();
 
   const headerContentRef = useRef<HTMLDivElement>(null);
@@ -82,16 +85,10 @@ const Header = () => {
       offsetTop: 200,
     });
 
-  /* gsap.to(document.querySelector('#scrollbar'), {
-      ease: Power2.easeOut,
-      scrollTo: {
-        offsetY: 200,
-        y: '#commisionsStatus',
-      },
-    }); */
+  const { title, description, button, heroSlider } = header;
 
   return (
-    <header className="mt-4 flex justify-center flex-col lg:flex-row lg:h-screen lg:items-center lg:px-page lg:gap-24 lg:justify-between lg:mt-16 overflow-hidden relative">
+    <header className="mt-4 flex justify-center flex-col lg:flex-row lg:h-screen lg:items-center lg:px-page lg:gap-24 lg:justify-between lg:mt-16 relative">
       <p className="text-[128px] font-semibold opacity-[0.025] -top-6 absolute left-16 z-[-1] lg:hidden">
         ART IST
       </p>
@@ -106,25 +103,29 @@ const Header = () => {
         ref={headerContentRef}
       >
         <div className="clip-path-full">
-          <Headline className="lg:translate-y-full">Megisaka</Headline>
+          <Headline className="lg:translate-y-full">{title}</Headline>
         </div>
         <div className="clip-path-full">
           <Text
             size="heading"
             className="mt-4 !font-light lg:w-[75%] lg:mt-8 lg:-translate-y-full"
           >
-            Click/Tap to edit me. That Biff, what a character. Always trying to
-            get away with something. Click/Tap to edit me. That Biff, what a
-            character.
+            {getTranslatedText(description, lang)}
           </Text>
         </div>
         <Button className="mt-8 lg:mt-11" onClick={scrollToLatest}>
-          NEXT
+          {getTranslatedText(button, lang)}
         </Button>
       </div>
-      <HeroSlider className="mt-11 lg:mt-0" />
+      <HeroSlider className="mt-11 lg:mt-0" slides={sliderImages} />
     </header>
   );
+};
+
+type HeaderProps = {
+  header: Home['header'];
+  lang?: Language;
+  sliderImages: string[];
 };
 
 export default Header;

@@ -1,29 +1,28 @@
 'use client';
 
 import { useLayoutEffect, useRef } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import gsap, { Circ } from 'gsap';
 
-import Bars from './ui/icons/Bars';
-import Language from './ui/icons/Language';
-import Text from './ui/typography/Text';
-import TransitionLink from './page-transition/TransitionLink';
-import { cn } from '@/utils/cn';
+import Text from '../ui/typography/Text';
+import TransitionLink from '../page-transition/TransitionLink';
+import LanguageSelect from './LanguageSelect';
+import HamburgerMenu from './HamburgerMenu';
+import { getTranslatedText } from '@/utils/getTranslatedText';
+import { Language as Lang } from '@/utils/langPageProps';
+import { Nav as NavReq } from '@/sanity/requests';
 
-const selects = [
-  { display: 'Home', href: '/' },
-  { display: 'Portfolio', href: '/portfolio' },
-  { display: 'Commisions', href: '#' },
-  { display: 'About', href: '#' },
-  { display: 'Contact', href: '#' },
-  { display: 'TOS', href: '#' },
-];
+export const selects = [
+  { id: 'home', href: '/' },
+  { id: 'portfolio', href: '/portfolio' },
+  { id: 'commissions', href: '#' },
+  { id: 'about', href: '#' },
+  { id: 'contact', href: '#' },
+  { id: 'tos', href: '#' },
+] as const satisfies { id: string; href: string }[];
 
-const Nav = () => {
-  const pathname = usePathname();
-
+const Nav = ({ nav, lang }: NavProps) => {
   const navRef = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
@@ -68,7 +67,7 @@ const Nav = () => {
 
   return (
     <nav
-      className="px-page-mobile py-6 flex justify-between w-full lg:w-[calc(min(100%,1620px)-178px)] lg:left-1/2 lg:-translate-x-1/2 lg:fixed lg:top-12 lg:px-9 lg:py-6 lg:border-[#1C1C1C] lg:border lg:rounded-full lg:bg-[#0C0A0A] lg:bg-opacity-60 lg:backdrop-blur-[80.5px] z-50 lg:invisible"
+      className="px-page-mobile pr-9 py-6 flex justify-between w-full lg:w-[calc(min(100%,1620px)-178px)] lg:left-1/2 lg:-translate-x-1/2 lg:fixed lg:top-12 lg:px-9 lg:py-6 lg:border-[#1C1C1C] lg:border lg:rounded-full lg:bg-[#0C0A0A] lg:bg-opacity-60 lg:backdrop-blur-[80.5px] z-50 lg:invisible"
       ref={navRef}
     >
       <TransitionLink href="/">
@@ -78,37 +77,35 @@ const Nav = () => {
           src="/images/logo.png"
           width={128}
           height={35}
-          className="aspect-[1407/384] w-32"
+          className="aspect-[1407/384] w-32 relative z-[1000]"
           priority
         />
       </TransitionLink>
       <ul className="flex gap-6 items-center justify-center lg:gap-12">
-        {selects.map(({ display, href }) => (
-          <li key={display} className="hidden lg:block">
+        {selects.map(({ id, href }) => (
+          <li
+            key={id}
+            className="hidden lg:block hover:text-crimson transition-colors"
+          >
             <TransitionLink href={href}>
-              <Text
-                size="nav"
-                className={cn({
-                  'text-crimson font-bold':
-                    pathname.split('/').splice(1).join('/') === href,
-                })}
-              >
-                {display}
-              </Text>
+              <Text size="nav">{getTranslatedText(nav[id], lang)}</Text>
             </TransitionLink>
           </li>
         ))}
         <li>
-          <Language />
+          <LanguageSelect />
         </li>
         <li className="lg:hidden flex items-center">
-          <button>
-            <Bars />
-          </button>
+          <HamburgerMenu nav={nav} lang={lang} />
         </li>
       </ul>
     </nav>
   );
+};
+
+type NavProps = {
+  nav: NavReq;
+  lang?: Lang;
 };
 
 export default Nav;

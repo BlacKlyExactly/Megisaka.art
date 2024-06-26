@@ -13,13 +13,13 @@ import useDetectSwipeDirection, {
 } from '@/hooks/useDetectSwipeDirection';
 import Sprinkles from './ui/decorations/Sprinkles';
 
-const slides = [
-  '/images/image2.png',
-  '/images/image3.png',
-  '/images/image1.png',
-];
-
-const HeroSlider = ({ className }: { className?: string }) => {
+const HeroSlider = ({
+  className,
+  slides,
+}: {
+  className?: string;
+  slides: string[];
+}) => {
   const [slide, setSlide] = useState(0);
 
   const slidesRef = useRef<HTMLDivElement>(null);
@@ -35,7 +35,7 @@ const HeroSlider = ({ className }: { className?: string }) => {
     gsap.to(slidesRef.current, {
       scrollTo: {
         x: sliderElements[slide],
-        offsetX: window.innerWidth >= 1024 ? 0 : 17,
+        offsetX: window.innerWidth >= 1024 ? 0 : 24,
       },
       duration: 0.8,
       ease: Expo.easeOut,
@@ -61,7 +61,7 @@ const HeroSlider = ({ className }: { className?: string }) => {
         gsap.set(slidesRef.current, {
           scrollTo: {
             x: sliderElements[slide],
-            offsetX: window.innerWidth >= 1024 ? 0 : 17,
+            offsetX: window.innerWidth >= 1024 ? 0 : 24,
           },
         });
       }, 1000);
@@ -103,17 +103,17 @@ const HeroSlider = ({ className }: { className?: string }) => {
       <div className="w-full ">
         <div
           ref={slidesRef}
-          className="flex shrink-0 overflow-hidden gap-2 px-page-mobile slider lg:px-0 lg:overflow-hidden"
+          className="flex overflow-hidden gap-2 px-page-mobile slider lg:px-0 lg:overflow-hidden"
         >
-          {slides.map((image) => (
+          {slides.map((image, idx) => (
             <Image
+              key={image + idx}
               src={image}
               alt=""
-              key={image}
               width={612}
               height={556}
               priority
-              className="border-b-4 border-crimson pointer-events-none w-full lg:border-0"
+              className="border-b-4 border-crimson pointer-events-none w-full lg:border-0 shrink-0"
             />
           ))}
         </div>

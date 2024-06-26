@@ -14,7 +14,8 @@ const Work = ({ image, title, type, className }: WorkProps) => {
   const imageRef = useRef<HTMLImageElement>(null);
 
   const handleMouseEnter = () => {
-    if (!infoRef.current || !imageRef.current) return;
+    if (!infoRef.current || !imageRef.current || window.innerWidth < 1024)
+      return;
 
     const panel = infoRef.current;
     const panelChildren = panel.children;
@@ -28,7 +29,7 @@ const Work = ({ image, title, type, className }: WorkProps) => {
   };
 
   const handleMouseLeave = () => {
-    if (!infoRef.current) return;
+    if (!infoRef.current || window.innerWidth < 1024) return;
 
     const panel = infoRef.current;
     const panelChildren = panel.children;

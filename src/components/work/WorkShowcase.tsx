@@ -44,7 +44,7 @@ const WorkShowcase = ({ className, works }: WorkShowcaseProps) => {
   }, [direction]);
 
   useLayoutEffect(() => {
-    if (!showed || !slidesRef.current) return;
+    if (!showed || !slidesRef.current || window.innerWidth < 1024) return;
 
     const tl = gsap.timeline({ delay: 0.2 });
 

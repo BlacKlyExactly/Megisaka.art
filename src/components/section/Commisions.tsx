@@ -8,14 +8,17 @@ import CommisionsForm from '../commisions/CommisionsForm';
 import Headline from '../ui/typography/Headline';
 import { cn } from '@/utils/cn';
 import useScrollShow from '@/hooks/useScrollShow';
+import { CommisionsSection } from '@/sanity/requests';
+import { Language } from '@/utils/langPageProps';
+import { getTranslatedText } from '@/utils/getTranslatedText';
 
-const Commisions = ({ open }: CommisionsProps) => {
+const Commisions = ({ open, commissionSection, lang }: CommisionsProps) => {
   const commisionsRef = useRef<HTMLElement>(null);
 
   const showed = useScrollShow(commisionsRef);
 
   useLayoutEffect(() => {
-    if (!showed || !commisionsRef.current) return;
+    if (!showed || !commisionsRef.current || window.innerWidth < 1024) return;
 
     const [
       {
@@ -29,6 +32,11 @@ const Commisions = ({ open }: CommisionsProps) => {
     gsap.to([title, status], { y: 0, ease: Circ.easeOut });
   }, [showed]);
 
+  const { title, stateTexts, form } = commissionSection;
+
+  const openText = getTranslatedText(stateTexts.open, lang);
+  const closeText = getTranslatedText(stateTexts.close, lang);
+
   return (
     <section
       id="commisionsStatus"
@@ -41,7 +49,7 @@ const Commisions = ({ open }: CommisionsProps) => {
       {/* <Image src="/images/banner.png" alt="" width={675} height={74} /> */}
       <div className="clip-path-full">
         <Headline heading="h2" className="lg:translate-y-full">
-          Commissions
+          {getTranslatedText(title, lang)}
         </Headline>
       </div>
       <div className="clip-path-full">
@@ -55,24 +63,26 @@ const Commisions = ({ open }: CommisionsProps) => {
         >
           {open ? (
             <div className="flex gap-2 items-center">
-              <p>OPEN</p> <Check size={32} />
+              <p>{openText}</p> <Check size={32} />
             </div>
           ) : (
             <div className="flex gap-2 items-center">
-              <p className="mt-2">CLOSED</p>
+              <p className="mt-2">{closeText}</p>
               <X size={32} />
             </div>
           )}
         </div>
       </div>
 
-      {open && <CommisionsForm />}
+      {open && <CommisionsForm lang={lang} form={form} />}
     </section>
   );
 };
 
 type CommisionsProps = {
   open: boolean;
+  commissionSection: CommisionsSection;
+  lang?: Language;
 };
 
 export default Commisions;
