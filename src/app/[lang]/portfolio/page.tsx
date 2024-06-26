@@ -9,7 +9,7 @@ const Portfolio = async ({ params: { lang } }: LanguagePageProps) => {
   const works = await fetchWorks();
 
   return (
-    <main className="py-10 flex flex-col justify-center lg:gap-4">
+    <main className="py-10 flex flex-col justify-center lg:gap-4 lg:pt-52">
       <Headline heading="h1" className="px-page-mobile lg:px-page">
         Portfolio
       </Headline>
