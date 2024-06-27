@@ -11,7 +11,7 @@ import LanguageSelect from './LanguageSelect';
 import HamburgerMenu from './HamburgerMenu';
 import { getTranslatedText } from '@/utils/getTranslatedText';
 import { Language as Lang } from '@/utils/langPageProps';
-import { Nav as NavReq } from '@/sanity/requests';
+import { Nav as NavReq } from '@/lib/sanity/requests';
 
 export const selects = [
   { id: 'home', href: '/' },

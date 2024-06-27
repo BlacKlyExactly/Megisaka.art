@@ -3,7 +3,8 @@ import 'server-only';
 import { createClient, type QueryParams } from 'next-sanity';
 
 export const client = createClient({
-  projectId: 'sut0pldy',
+  projectId: process.env.SANITY_PROJECTID,
+  token: process.env.SANITY_TOKEN,
   dataset: 'production',
   apiVersion: '2024-01-01',
   useCdn: false,
@@ -20,7 +21,7 @@ export async function sanityFetch<QueryResponse>({
 }) {
   return client.fetch<QueryResponse>(query, params, {
     next: {
-      revalidate: process.env.NODE_ENV === 'development' ? 30 : 3600,
+      revalidate: process.env.NODE_ENV === 'development' ? 0 : 60,
       tags,
     },
   });

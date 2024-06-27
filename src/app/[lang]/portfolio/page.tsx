@@ -1,7 +1,7 @@
 import Headline from '@/components/ui/typography/Headline';
 import WorkShowcase from '@/components/work/WorkShowcase';
-import { getImage } from '@/sanity/getImage';
-import { fetchWorks } from '@/sanity/requests';
+import { getImage } from '@/lib/sanity/getImage';
+import { fetchWorks } from '@/lib/sanity/requests';
 import { getTranslatedText } from '@/utils/getTranslatedText';
 import { LanguagePageProps } from '@/utils/langPageProps';
 

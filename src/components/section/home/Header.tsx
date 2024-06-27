@@ -11,7 +11,7 @@ import Button from '../../ui/Button';
 import Sprinkles from '../../ui/decorations/Sprinkles';
 import Headline from '../../ui/typography/Headline';
 import Text from '../../ui/typography/Text';
-import { Home } from '@/sanity/requests';
+import { Home } from '@/lib/sanity/requests';
 import { Language } from '@/utils/langPageProps';
 import { getTranslatedText } from '@/utils/getTranslatedText';
 
@@ -81,7 +81,7 @@ const Header = ({ header, lang, sliderImages }: HeaderProps) => {
   }, []);
 
   const scrollToLatest = () =>
-    scrollbar?.scrollIntoView(document.querySelector('#commisionsStatus')!, {
+    scrollbar?.scrollIntoView(document.querySelector('#commissions')!, {
       offsetTop: 200,
     });
 

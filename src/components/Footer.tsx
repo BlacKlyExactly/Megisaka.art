@@ -1,6 +1,6 @@
 import Text from './ui/typography/Text';
 import { Language } from '@/utils/langPageProps';
-import { fetchFooter } from '@/sanity/requests';
+import { fetchFooter } from '@/lib/sanity/requests';
 import { getTranslatedText } from '@/utils/getTranslatedText';
 
 const Footer = async ({ lang }: { lang?: Language }) => {

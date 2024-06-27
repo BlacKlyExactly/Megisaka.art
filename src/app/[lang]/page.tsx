@@ -6,18 +6,22 @@ import Commisions from '@/components/section/Commisions';
 import Header from '@/components/section/home/Header';
 
 import {
+  fetchCommission,
   fetchCommissionSection,
   fetchHome,
   fetchWorks,
-} from '@/sanity/requests';
+} from '@/lib/sanity/requests';
 import { LanguagePageProps } from '@/utils/langPageProps';
 import { getTranslatedText } from '@/utils/getTranslatedText';
-import { getImage } from '@/sanity/getImage';
+import { getImage } from '@/lib/sanity/getImage';
 
 const Home = async ({ params: { lang } }: LanguagePageProps) => {
   const { header, latestWork } = await fetchHome();
   const commissionSection = await fetchCommissionSection();
+  const commissions = await fetchCommission();
   const works = await fetchWorks(3);
+
+  const acceptedCommissions = commissions.filter(({ accepted }) => accepted);
 
   const heroSliderImages = header.heroSlider.map((source) =>
     getImage(source, 612, 612),
@@ -28,7 +32,7 @@ const Home = async ({ params: { lang } }: LanguagePageProps) => {
       <Header header={header} lang={lang} sliderImages={heroSliderImages} />
       <main className="mt-24 text-center lg:text-left lg:mt-0">
         <Commisions
-          open={true}
+          open={acceptedCommissions.length < 5}
           commissionSection={commissionSection}
           lang={lang}
         />

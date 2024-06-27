@@ -6,7 +6,7 @@ import gsap, { Circ } from 'gsap';
 import TransitionLink from '../page-transition/TransitionLink';
 import Bars from '../ui/icons/Bars';
 import Text from '../ui/typography/Text';
-import { Nav } from '@/sanity/requests';
+import { Nav } from '@/lib/sanity/requests';
 import { getTranslatedText } from '@/utils/getTranslatedText';
 import { Language } from '@/utils/langPageProps';
 import { selects } from './Nav';

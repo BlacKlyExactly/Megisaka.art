@@ -48,6 +48,8 @@ export type CommisionsSection = SanityDocument<{
       placeholder: I18nString;
     };
     send: I18nString;
+    sendSuccess: I18nString;
+    sendError: I18nString;
   };
 }>;
 
@@ -92,6 +94,20 @@ export const fetchWorks = async (count?: number) => {
 
   const QUERY = `*[_type == "work"]{_id, _createdAt, title, slug, type, image}${countStr}|order(_createdAt desc)`;
   return await sanityFetch<SanityDocument<Work>[]>({ query: QUERY });
+};
+
+export type Commission = {
+  name: string;
+  accepted: boolean;
+  email: string;
+  artType: string;
+  description: string;
+  attachments: SanityImageSource[];
+};
+
+export const fetchCommission = async () => {
+  const QUERY = `*[_type == "commissions"]{_id, name, accepted, email, artType, description, attachments}`;
+  return await sanityFetch<SanityDocument<Commission>[]>({ query: QUERY });
 };
 
 export type I18nString = {

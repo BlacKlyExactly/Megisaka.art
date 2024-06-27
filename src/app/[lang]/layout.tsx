@@ -1,14 +1,15 @@
 import '../globals.css';
 import type { Metadata } from 'next';
+import { Toaster } from 'react-hot-toast';
 
-import Nav from '@/components/Nav/Nav';
+import Nav from '@/components/nav/Nav';
 import Footer from '@/components/Footer';
 import AnimatedCursor from '@/components/AnimatedCursor';
 import PageTransition from '@/components/page-transition/PageTransition';
 import SmoothScrollbar from '@/components/SmoothScrollbar';
 import { cn } from '@/utils/cn';
 import { LanguagePageProps } from '@/utils/langPageProps';
-import { fetchNav } from '@/sanity/requests';
+import { fetchNav } from '@/lib/sanity/requests';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -29,6 +30,7 @@ export default async function RootLayout({
         <AnimatedCursor />
         <PageTransition />
         <SmoothScrollbar />
+        <Toaster />
         <Nav nav={nav} lang={lang} />
 
         <div id="scrollbar" className="h-screen max-w-screen w-full">
