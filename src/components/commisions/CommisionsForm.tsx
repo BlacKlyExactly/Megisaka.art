@@ -177,6 +177,12 @@ const CommisionsForm = ({ form, lang }: CommissionsFormProps) => {
               accept="image/*"
             />
           </div>
+          <Input
+            className="absolute opacity-0 top-0 left-0 z-[-5] h-0 w-0"
+            autoComplete="off"
+            type="text"
+            {...register('dc30ea9')}
+          />
         </div>
         <div className="flex flex-col gap-2 w-full lg:gap-3">
           <Label

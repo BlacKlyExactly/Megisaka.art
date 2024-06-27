@@ -9,7 +9,17 @@ import { SanityImageAssetDocument } from 'next-sanity';
 export const sendCommission = actionClient
   .schema(sendCommissionSchemaFd)
   .action(
-    async ({ parsedInput: { name, email, artType, files, description } }) => {
+    async ({
+      parsedInput: { name, email, artType, files, description, dc30ea9 },
+    }) => {
+      //Honeypot
+      if (dc30ea9) {
+        console.error('Honeypot filled!');
+        return {
+          error: 'Bot detected',
+        };
+      }
+
       if (!name || !email || !artType || !description)
         return {
           error: 'Missing input values',

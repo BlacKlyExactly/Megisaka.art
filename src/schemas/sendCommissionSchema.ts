@@ -7,6 +7,7 @@ export const sendCommissionSchema = z.object({
   artType: z.string().min(1, 'Required'),
   files: z.custom<FileList>(),
   description: z.string().min(1, 'Required'),
+  dc30ea9: z.string().optional(), //Honeypot
 });
 
 export const sendCommissionSchemaFd = zfd.formData({
@@ -15,6 +16,7 @@ export const sendCommissionSchemaFd = zfd.formData({
   artType: zfd.text(z.string().min(1, 'Required')),
   files: zfd.json(z.any()),
   description: zfd.text(z.string().min(1, 'Required')),
+  dc30ea9: zfd.text(z.string().optional()), //Honeypot
 });
 
 export type SendCommissionValues = z.infer<typeof sendCommissionSchema>;
