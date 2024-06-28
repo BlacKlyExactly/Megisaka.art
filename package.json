@@ -21,6 +21,7 @@
     "@types/react-dom": "18.3.0",
     "@upstash/ratelimit": "^1.2.1",
     "@vercel/kv": "^2.0.0",
+    "@vercel/speed-insights": "^1.0.12",
     "autoprefixer": "10.4.19",
     "chalk": "^4.1.2",
     "class-variance-authority": "^0.7.0",
