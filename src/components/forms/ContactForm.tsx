@@ -109,13 +109,14 @@ const ContactForm = ({ form, lang }: CommissionsFormProps) => {
               placeholder={getTranslatedText(email.placeholder, lang)}
             />
           </div>
-
-          <Input
-            className="absolute opacity-0 top-0 left-0 z-[-5] h-0 w-0"
-            autoComplete="off"
-            type="text"
-            {...register('bkuXk05')}
-          />
+          <div className="hidden">
+            <Input
+              className="absolute opacity-0 top-0 left-0 z-[-5] h-0 w-0"
+              autoComplete="off"
+              type="text"
+              {...register('bkuXk05')}
+            />
+          </div>
         </div>
         <div className="flex flex-col gap-2 w-full lg:gap-3">
           <Label
