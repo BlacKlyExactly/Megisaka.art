@@ -1,10 +1,9 @@
 'use server';
 
 import WorkShowcase from '@/components/work/WorkShowcase';
-import SectionContent from '@/components/section/SectionContent';
-import Commisions from '@/components/section/Commisions';
-import Header from '@/components/section/home/Header';
-
+import SectionContent from '@/components/ui/section/SectionContent';
+import Commisions from '@/components/ui/section/Commisions';
+import Header from '@/components/ui/section/home/Header';
 import {
   fetchCommission,
   fetchCommissionSection,
@@ -14,6 +13,7 @@ import {
 import { LanguagePageProps } from '@/utils/langPageProps';
 import { getTranslatedText } from '@/utils/getTranslatedText';
 import { getImage } from '@/lib/sanity/getImage';
+import Section from '@/components/ui/section/Section';
 
 const Home = async ({ params: { lang } }: LanguagePageProps) => {
   const { header, latestWork } = await fetchHome();
@@ -23,9 +23,10 @@ const Home = async ({ params: { lang } }: LanguagePageProps) => {
 
   const acceptedCommissions = commissions.filter(({ accepted }) => accepted);
 
-  const heroSliderImages = header.heroSlider.map((source) =>
-    getImage(source, 612, 612),
-  );
+  const heroSliderImages = header.heroSlider.map((source) => ({
+    url: getImage(source, 612, 612),
+    alt: source.alt,
+  }));
 
   return (
     <>
@@ -36,7 +37,7 @@ const Home = async ({ params: { lang } }: LanguagePageProps) => {
           commissionSection={commissionSection}
           lang={lang}
         />
-        <section id="latest">
+        <Section>
           <SectionContent title={getTranslatedText(latestWork.title, lang)}>
             {getTranslatedText(latestWork.description, lang)}
           </SectionContent>
@@ -46,9 +47,10 @@ const Home = async ({ params: { lang } }: LanguagePageProps) => {
               title,
               type: getTranslatedText(type, lang),
               image: getImage(image, 612, 612),
+              alt: image.alt,
             }))}
           />
-        </section>
+        </Section>
       </main>
     </>
   );

@@ -1,10 +1,12 @@
 'use server';
 
+import { SanityImageAssetDocument } from 'next-sanity';
+
 import { mg } from '@/lib/mailgun';
 import { actionClient } from '@/lib/safe-action';
 import { client } from '@/lib/sanity/client';
 import { sendCommissionSchemaFd } from '@/schemas/sendCommissionSchema';
-import { SanityImageAssetDocument } from 'next-sanity';
+import ratelimit from '@/utils/ratelimit';
 
 export const sendCommission = actionClient
   .schema(sendCommissionSchemaFd)
@@ -12,17 +14,37 @@ export const sendCommission = actionClient
     async ({
       parsedInput: { name, email, artType, files, description, dc30ea9 },
     }) => {
+      const { exceeded, limit, reset, remaining } = await ratelimit();
+
+      if (exceeded) {
+        console.error(`Exceeded ratelimit: ${limit}, ${remaining}, ${reset}`);
+
+        return {
+          error: {
+            pl: 'Przekroczono limit zapytań. Spróbuj ponownie później',
+            en: 'Rate limit exceeded. Try again later',
+          },
+        };
+      }
+
       //Honeypot
       if (dc30ea9) {
         console.error('Honeypot filled!');
+
         return {
-          error: 'Bot detected',
+          error: {
+            pl: 'Wykryto bota',
+            en: 'Bot detected',
+          },
         };
       }
 
       if (!name || !email || !artType || !description)
         return {
-          error: 'Missing input values',
+          error: {
+            pl: 'Wymagane pola nie są wypełnione',
+            en: "Required fields aren't filled",
+          },
         };
 
       try {
@@ -70,14 +92,14 @@ export const sendCommission = actionClient
           mg.messages.create(process.env.MAILGUN_MAIL, {
             from: `Megisaka <megisaka@${process.env.MAILGUN_MAIL}>`,
             to: [process.env.ARTIST_MAIL],
-            subject: 'Nowe zlecenie',
+            subject: `Nowe zlecenie od ${name}`,
             html: /*html*/ `
           <h1>Nowe zlecenie</h1>
           <br>
           <p>Nazwa: ${name}</p>
           <p>Email: ${email}</p>
           <p>Typ rysunku: ${artType}</p>
-          <p>Description: ${description}</p><br>
+          <p>Opis: ${description}</p><br>
           <p>Załączniki:</p>
           ${assets.map(
             (asset) =>
@@ -91,13 +113,9 @@ export const sendCommission = actionClient
             subject: 'Commission confirmaiion',
             html: /*html*/ `
           <h1>Commission confirmaiion</h1><br>
-          <p>Hi!</p>
-          <p>I have recieved your commission and I'm gonna contact with you soon :3</p>
-          <p>If you have any questions, contact with me.</p>
-          <p>Mail: <b>megisapolska@gmail.com</b></p>
-          <p>Discord: <b>megisaka</b></p><br>
-          <p>Greetings</p>
-          <p>Megisaka</p>
+          <p>Hi!<br>I have recieved your commission and I'm gonna contact with you soon :3<br>If you have any questions, contact with me.</p>
+          <p>Mail: <b>megisapolska@gmail.com</b><br>Discord: <b>megisaka</b></p></p>
+          <p>Greetings<br><b>Megisaka</b></p>
           `,
           }),
         ];
@@ -105,12 +123,19 @@ export const sendCommission = actionClient
         await Promise.all(messages);
 
         return {
-          success: 'Successfully sent commission request',
+          success: {
+            pl: 'Pomyślnie wysłano prośbę o rysunek',
+            en: 'Successfully sent commission request',
+          },
         };
       } catch (error) {
         console.log(error);
+
         return {
-          error: 'Something went wrong. Try again later',
+          error: {
+            pl: 'Wystąpił błąd, spróbuj ponownie później',
+            en: 'Something went wrong. Try again later',
+          },
         };
       }
     },

@@ -6,11 +6,11 @@ import gsap, { Circ } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import Scrollbar from 'smooth-scrollbar';
 
-import HeroSlider from '../../HeroSlider';
-import Button from '../../ui/Button';
-import Sprinkles from '../../ui/decorations/Sprinkles';
-import Headline from '../../ui/typography/Headline';
-import Text from '../../ui/typography/Text';
+import HeroSlider from '../../../HeroSlider';
+import Button from '../../Button';
+import Sprinkles from '../../decorations/Sprinkles';
+import Headline from '../../typography/Headline';
+import Text from '../../typography/Text';
 import { Home } from '@/lib/sanity/requests';
 import { Language } from '@/utils/langPageProps';
 import { getTranslatedText } from '@/utils/getTranslatedText';
@@ -85,7 +85,7 @@ const Header = ({ header, lang, sliderImages }: HeaderProps) => {
       offsetTop: 200,
     });
 
-  const { title, description, button, heroSlider } = header;
+  const { title, description, button } = header;
 
   return (
     <header className="mt-4 flex justify-center flex-col lg:flex-row lg:h-screen lg:items-center lg:px-page lg:gap-24 lg:justify-between lg:mt-16 relative">
@@ -103,12 +103,14 @@ const Header = ({ header, lang, sliderImages }: HeaderProps) => {
         ref={headerContentRef}
       >
         <div className="clip-path-full">
-          <Headline className="lg:translate-y-full">{title}</Headline>
+          <Headline className="lg:translate-y-full text-center lg:text-left">
+            {title}
+          </Headline>
         </div>
         <div className="clip-path-full">
           <Text
             size="heading"
-            className="mt-4 !font-light lg:w-[75%] lg:mt-8 lg:-translate-y-full"
+            className="mt-4 !font-light lg:w-[75%] lg:mt-8 lg:-translate-y-full text-center lg:text-left"
           >
             {getTranslatedText(description, lang)}
           </Text>
@@ -125,7 +127,7 @@ const Header = ({ header, lang, sliderImages }: HeaderProps) => {
 type HeaderProps = {
   header: Home['header'];
   lang?: Language;
-  sliderImages: string[];
+  sliderImages: { alt: string; url: string }[];
 };
 
 export default Header;

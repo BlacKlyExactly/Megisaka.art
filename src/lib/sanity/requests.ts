@@ -7,7 +7,7 @@ export type Home = SanityDocument<{
     button: I18nString;
     description: I18nString;
     title: string;
-    heroSlider: SanityImageSource[];
+    heroSlider: SanityImage[];
   };
   latestWork: {
     title: I18nString;
@@ -86,7 +86,7 @@ export type Work = SanityDocument<{
   title: string;
   slug: string;
   type: I18nString;
-  image: SanityImageSource;
+  image: SanityImage;
 }>;
 
 export const fetchWorks = async (count?: number) => {
@@ -110,7 +110,46 @@ export const fetchCommission = async () => {
   return await sanityFetch<SanityDocument<Commission>[]>({ query: QUERY });
 };
 
+export type Tos = {
+  tosPl?: any;
+  tosEn?: any;
+};
+
+export const fetchTos = async () => {
+  const QUERY = `*[_type == "tos"][0]{_id, tosPl, tosEn}`;
+  return await sanityFetch<SanityDocument<Tos>>({ query: QUERY });
+};
+
+export type Contact = SanityDocument<{
+  title: I18nString;
+  description: I18nString;
+  form: {
+    name: {
+      label: I18nString;
+      placeholder: I18nString;
+    };
+    email: {
+      label: I18nString;
+      placeholder: I18nString;
+    };
+    description: {
+      label: I18nString;
+      placeholder: I18nString;
+    };
+    send: I18nString;
+  };
+}>;
+
+export const fetchContact = async () => {
+  const QUERY = `*[_type == "contact"][0]{_id, title, description, form}`;
+  return await sanityFetch<SanityDocument<Contact>>({ query: QUERY });
+};
+
 export type I18nString = {
   pl: string;
   en: string;
+};
+
+export type SanityImage = SanityImageSource & {
+  alt: string;
 };

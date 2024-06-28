@@ -4,7 +4,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { cn } from '@/utils/cn';
 
 export const textVariants = cva(
-  'text-sm tracking-[4%] !leading-[230%] font-normal',
+  'text-sm tracking-[4%] !leading-[230%] font-normal text-left',
   {
     variants: {
       size: {

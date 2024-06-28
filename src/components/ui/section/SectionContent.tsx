@@ -3,8 +3,8 @@
 import { PropsWithChildren, useLayoutEffect, useRef } from 'react';
 import gsap, { Circ } from 'gsap';
 
-import Headline from '../ui/typography/Headline';
-import Text from '../ui/typography/Text';
+import Headline from '../typography/Headline';
+import Text from '../typography/Text';
 import useScrollShow from '@/hooks/useScrollShow';
 
 const SectionContent = ({ children, title }: SectionContentProps) => {

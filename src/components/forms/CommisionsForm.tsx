@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import gsap, { Circ } from 'gsap';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAction } from 'next-safe-action/hooks';
+import toast from 'react-hot-toast';
 
 import Button from '../ui/Button';
 import Input from '../ui/form/Input';
@@ -28,17 +29,19 @@ import {
   SendCommissionValues,
 } from '@/schemas/sendCommissionSchema';
 import { sendCommission } from '@/actions/sendCommission';
-import toast from 'react-hot-toast';
 
 const ARTTYPE_CATEGORIES = [
-  { display: 'Live2d model (Basic or Advanced)', value: 'live2d' },
-  { display: 'Concept Art', value: 'concept' },
-  { display: 'Streaming assets', value: 'streamingAssets' },
-  { display: 'Emotes', value: 'emotes' },
-  { display: 'Fanart', value: 'fanart' },
-  { display: 'Loading screen', value: 'loadingScreen' },
-  { display: 'Animated loading screen of art', value: 'artLoadingScreen' },
-  { display: 'Other', value: 'other' },
+  { display: 'Live2d model (Basic or Advanced)', value: 'Live2d model' },
+  { display: 'Concept Art', value: 'Concept Art' },
+  { display: 'Streaming assets', value: 'Streaming assets' },
+  { display: 'Emotes', value: 'Emotes' },
+  { display: 'Fanart', value: 'Fanart' },
+  { display: 'Loading screen', value: 'Loading screen' },
+  {
+    display: 'Animated loading screen of art',
+    value: 'Animated loading screen of art',
+  },
+  { display: 'Other', value: 'Other' },
 ];
 
 const CommisionsForm = ({ form, lang }: CommissionsFormProps) => {
@@ -49,6 +52,7 @@ const CommisionsForm = ({ form, lang }: CommissionsFormProps) => {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<SendCommissionValues>({
     resolver: zodResolver(sendCommissionSchema),
@@ -62,7 +66,7 @@ const CommisionsForm = ({ form, lang }: CommissionsFormProps) => {
 
     const [inputs, button] = formRef.current.children;
 
-    const tl = gsap.timeline({ delay: 0.3 });
+    const tl = gsap.timeline({ delay: 0.5 });
 
     tl.set([inputs, button], { visibility: 'visible' })
       .from(inputs.children, {
@@ -89,15 +93,19 @@ const CommisionsForm = ({ form, lang }: CommissionsFormProps) => {
     startTransition(async () => {
       const result = await executeAsync(objectToFormData(data));
 
-      result?.data?.error && toast.error(getTranslatedText(sendError, lang));
-      result?.data?.success &&
-        toast.success(getTranslatedText(sendSuccess, lang));
+      result?.data?.error &&
+        toast.error(getTranslatedText(result.data.error, lang));
+
+      if (result?.data?.success) {
+        reset();
+        toast.success(getTranslatedText(result.data.success, lang));
+      }
     });
   });
 
   return (
     <form
-      className="w-full mt-5 flex flex-col gap-6 lg:mt-16"
+      className="w-full mt-8 flex flex-col gap-6 lg:mt-16"
       ref={formRef}
       onSubmit={onSubmit}
     >

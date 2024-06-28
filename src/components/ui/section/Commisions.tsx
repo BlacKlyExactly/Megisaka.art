@@ -4,20 +4,30 @@ import { useLayoutEffect, useRef } from 'react';
 import { Check, X } from 'lucide-react';
 import gsap, { Circ } from 'gsap';
 
-import CommisionsForm from '../commisions/CommisionsForm';
-import Headline from '../ui/typography/Headline';
-import { cn } from '@/utils/cn';
+import CommisionsForm from '../../forms/CommisionsForm';
+import Headline from '../typography/Headline';
+import Section from './Section';
 import useScrollShow from '@/hooks/useScrollShow';
 import { CommisionsSection } from '@/lib/sanity/requests';
 import { Language } from '@/utils/langPageProps';
 import { getTranslatedText } from '@/utils/getTranslatedText';
+import { cn } from '@/utils/cn';
 
-const Commisions = ({ open, commissionSection, lang }: CommisionsProps) => {
-  const commisionsRef = useRef<HTMLElement>(null);
+const Commisions = ({
+  open,
+  commissionSection,
+  lang,
+  isSection,
+  headline,
+  className,
+}: CommisionsProps) => {
+  const commisionsRef = useRef<HTMLDivElement>(null);
 
   const showed = useScrollShow(commisionsRef);
 
   useLayoutEffect(() => {
+    console.log(commisionsRef);
+
     if (!showed || !commisionsRef.current || window.innerWidth < 1024) return;
 
     const [
@@ -37,18 +47,24 @@ const Commisions = ({ open, commissionSection, lang }: CommisionsProps) => {
   const openText = getTranslatedText(stateTexts.open, lang);
   const closeText = getTranslatedText(stateTexts.close, lang);
 
+  isSection ??= true;
+  headline ??= 'h2';
+
+  const Component = isSection ? Section : 'div';
+
   return (
-    <section
+    <Component
       id="commissions"
       className={cn(
-        'px-page-mobile lg:px-page flex items-center flex-col gap-2 lg:gap-4 lg:pb-24 pb-24 lg:items-start',
+        'px-page-mobile lg:px-page flex flex-col gap-2 lg:gap-4',
         { 'lg:pb-44': !open },
+        className,
       )}
       ref={commisionsRef}
     >
       {/* <Image src="/images/banner.png" alt="" width={675} height={74} /> */}
       <div className="clip-path-full">
-        <Headline heading="h2" className="lg:translate-y-full">
+        <Headline heading={headline} className="lg:translate-y-full text-left">
           {getTranslatedText(title, lang)}
         </Headline>
       </div>
@@ -75,7 +91,7 @@ const Commisions = ({ open, commissionSection, lang }: CommisionsProps) => {
       </div>
 
       {open && <CommisionsForm lang={lang} form={form} />}
-    </section>
+    </Component>
   );
 };
 
@@ -83,6 +99,9 @@ type CommisionsProps = {
   open: boolean;
   commissionSection: CommisionsSection;
   lang?: Language;
+  isSection?: boolean;
+  headline?: 'h2' | 'h1';
+  className?: string;
 };
 
 export default Commisions;

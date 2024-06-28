@@ -18,7 +18,7 @@ const HeroSlider = ({
   slides,
 }: {
   className?: string;
-  slides: string[];
+  slides: { alt: string; url: string }[];
 }) => {
   const [slide, setSlide] = useState(0);
 
@@ -105,11 +105,11 @@ const HeroSlider = ({
           ref={slidesRef}
           className="flex overflow-hidden gap-2 px-page-mobile slider lg:px-0 lg:overflow-hidden"
         >
-          {slides.map((image, idx) => (
+          {slides.map(({ alt, url }, idx) => (
             <Image
-              key={image + idx}
-              src={image}
-              alt=""
+              key={alt + url}
+              src={url}
+              alt={alt}
               width={612}
               height={556}
               priority

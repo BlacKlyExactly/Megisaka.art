@@ -16,10 +16,10 @@ import { Nav as NavReq } from '@/lib/sanity/requests';
 export const selects = [
   { id: 'home', href: '/' },
   { id: 'portfolio', href: '/portfolio' },
-  { id: 'commissions', href: '#' },
+  { id: 'commissions', href: '/commissions' },
   { id: 'about', href: '#' },
-  { id: 'contact', href: '#' },
-  { id: 'tos', href: '#' },
+  { id: 'contact', href: '/contact' },
+  { id: 'tos', href: '/tos' },
 ] as const satisfies { id: string; href: string }[];
 
 const Nav = ({ nav, lang }: NavProps) => {
