@@ -8,7 +8,7 @@ const Footer = async ({ lang }: { lang?: Language }) => {
   const { copyright, madeby } = await fetchFooter();
 
   return (
-    <footer className=" py-11 pb-40 px-page-mobile w-full border-t border-white border-opacity-[0.12] flex flex-col justify-center items-center lg:px-page lg:flex-row lg:justify-between gap-8 mt-28 lg:mt-36 lg:pb-11">
+    <footer className="py-11 px-page-mobile w-full border-t border-white border-opacity-[0.12] flex flex-col justify-center items-center lg:px-page lg:flex-row lg:justify-between gap-8 mt-28 lg:mt-36 lg:pb-11">
       <div className="space-y-4">
         <Text
           size="footer"

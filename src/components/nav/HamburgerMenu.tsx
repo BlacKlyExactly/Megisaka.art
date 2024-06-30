@@ -50,7 +50,8 @@ const HamburgerMenu = ({ nav, lang }: HamburgerMenuProps) => {
       <div
         className="fixed top-0 left-0 w-screen h-screen bg-dark z-[100] opacity-50"
         ref={cover}
-      ></div>
+        onClick={toggle}
+      />
 
       <div
         className="w-[55vw] h-screen fixed bottom-0 z-[101] bg-dark right-0 lg:hidden overflow-y-hidden touch-none"

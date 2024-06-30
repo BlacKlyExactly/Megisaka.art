@@ -11,7 +11,7 @@ const Main = ({
   return (
     <Component
       className={cn(
-        'py-10 flex flex-col justify-center lg:gap-4 lg:pt-52 lg:pb-44',
+        'py-10 pt-24 flex flex-col justify-center lg:gap-4 lg:pt-52 lg:pb-44',
         className,
       )}
     >

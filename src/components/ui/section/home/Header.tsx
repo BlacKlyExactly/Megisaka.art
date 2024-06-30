@@ -24,6 +24,8 @@ const Header = ({ header, lang, sliderImages }: HeaderProps) => {
   const sprinklesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (window.innerWidth < 1024) return;
+
     setScrollbar(
       Scrollbar.init(document.querySelector('#scrollbar')!, { damping: 0.05 }),
     );
@@ -81,14 +83,16 @@ const Header = ({ header, lang, sliderImages }: HeaderProps) => {
   }, []);
 
   const scrollToLatest = () =>
-    scrollbar?.scrollIntoView(document.querySelector('#commissions')!, {
-      offsetTop: 200,
-    });
+    scrollbar
+      ? scrollbar.scrollIntoView(document.querySelector('#commissions')!, {
+          offsetTop: 200,
+        })
+      : gsap.to(window, { scrollTo: { offsetY: 110, y: '#commissions' } });
 
   const { title, description, button } = header;
 
   return (
-    <header className="mt-4 flex justify-center flex-col lg:flex-row lg:h-screen lg:items-center lg:px-page lg:gap-24 lg:justify-between lg:mt-16 relative">
+    <header className="mt-24 flex justify-center flex-col lg:flex-row lg:h-screen lg:items-center lg:px-page lg:gap-24 lg:justify-between lg:mt-16 relative">
       <p className="text-[128px] font-semibold opacity-[0.025] -top-6 absolute left-16 z-[-1] lg:hidden">
         ART IST
       </p>

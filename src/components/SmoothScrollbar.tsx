@@ -11,6 +11,8 @@ const SmoothScrollbar = () => {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (window.innerWidth < 1024) return;
+
     setScrollbar(
       Scrollbar.init(document.querySelector('#scrollbar')!, { damping: 0.05 }),
     );
