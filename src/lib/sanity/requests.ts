@@ -16,7 +16,7 @@ export type Home = SanityDocument<{
 }>;
 
 export const fetchHome = async () => {
-  const QUERY = `*[_type == "home"][0]{_id, header, latestWork}`;
+  const QUERY = `*[_type == "home"][0]{_id, header{..., heroSlider[]{..., asset->{..., metadata}}}, latestWork}`;
   return await sanityFetch<SanityDocument<Home>>({ query: QUERY });
 };
 
@@ -103,12 +103,12 @@ export type ExtendedWork = Work<{
 export const fetchWorks = async (count?: number) => {
   const countStr = count ? `[0..${count - 1}]` : '';
 
-  const QUERY = `*[_type == "work"]{_id, _createdAt, title, slug, type, image}${countStr}|order(_createdAt desc)`;
+  const QUERY = `*[_type == "work"]{_id, _createdAt, title, slug, type, image{..., asset->{..., metadata}}}${countStr}|order(_createdAt desc)`;
   return await sanityFetch<SanityDocument<Work>[]>({ query: QUERY });
 };
 
 export const fetchWork = async (slug: string) => {
-  const QUERY = `*[_type == "work" && slug.current == '${slug}'][0]{_id, _createdAt, title, slug, type, image, gallery, description, realizationTime, programs, showcaseEn, showcasePl}`;
+  const QUERY = `*[_type == "work" && slug.current == '${slug}'][0]{_id, _createdAt, title, slug, type, image{..., asset->{..., metadata}}, gallery[]{..., asset->{..., metadata}}, description, realizationTime, programs, showcaseEn, showcasePl}`;
 
   return await sanityFetch<SanityDocument<ExtendedWork> | null>({
     query: QUERY,
@@ -189,6 +189,11 @@ export type I18nString = {
 
 export type SanityImage = SanityImageSource & {
   alt: string;
+  asset: {
+    metadata: {
+      lqip: string;
+    };
+  };
 };
 
 export type SanitySlug = {

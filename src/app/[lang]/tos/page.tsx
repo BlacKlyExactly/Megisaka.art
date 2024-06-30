@@ -29,7 +29,7 @@ const Tos = async ({ params: { lang } }: LanguagePageProps) => {
       )}
     >
       <Headline heading="h1">TOS</Headline>
-      <div className="flex flex-col gap-6 mt-6 lg:mt-8">
+      <div className="flex flex-col pb-24 gap-6 mt-6 lg:mt-8 lg:pb-0">
         <PortableText
           value={currentBlock}
           components={{

@@ -127,7 +127,7 @@ const Header = ({ header, lang, sliderImages }: HeaderProps) => {
 type HeaderProps = {
   header: Home['header'];
   lang?: Language;
-  sliderImages: { alt: string; url: string }[];
+  sliderImages: { alt: string; url: string; lqip: string }[];
 };
 
 export default Header;

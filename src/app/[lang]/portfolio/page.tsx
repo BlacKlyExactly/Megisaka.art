@@ -36,6 +36,7 @@ const Portfolio = async ({ params: { lang } }: LanguagePageProps) => {
           image: getImage(image, 612, 612),
           alt: image.alt,
           slug,
+          lqip: image.asset.metadata.lqip,
         }))}
       />
     </Main>

@@ -10,7 +10,15 @@ import { SanitySlug } from '@/lib/sanity/requests';
 
 const DURATION = 0.3;
 
-const Work = ({ image, title, type, className, alt, slug }: WorkProps) => {
+const Work = ({
+  image,
+  title,
+  type,
+  className,
+  alt,
+  slug,
+  lqip,
+}: WorkProps) => {
   const infoRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
@@ -75,6 +83,8 @@ const Work = ({ image, title, type, className, alt, slug }: WorkProps) => {
           className="border-b-4 border-crimson lg:border-none w-full h-full absolute top-0 left-0"
           width={400}
           height={400}
+          placeholder="blur"
+          blurDataURL={lqip}
         />
       </article>
     </TransitionLink>
@@ -87,6 +97,7 @@ export type WorkProps = {
   type: string;
   alt: string;
   slug: SanitySlug;
+  lqip: string;
   className?: string;
 };
 

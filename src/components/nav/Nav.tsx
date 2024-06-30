@@ -70,7 +70,7 @@ const Nav = ({ nav, lang }: NavProps) => {
 
   return (
     <nav
-      className="px-page-mobile pr-9 py-6 flex justify-between w-full lg:w-[calc(min(100%,1620px)-178px)] lg:left-1/2 lg:-translate-x-1/2 lg:fixed lg:top-12 lg:px-9 lg:py-6 lg:border-[#1C1C1C] lg:border lg:rounded-full lg:bg-[#0C0A0A] lg:bg-opacity-60 lg:backdrop-blur-[80.5px] z-50 lg:invisible"
+      className="visible px-page-mobile pr-9 py-6 flex justify-between w-full lg:w-[calc(min(100%,1620px)-178px)] lg:left-1/2 lg:-translate-x-1/2 lg:fixed lg:top-12 lg:px-9 lg:py-6 lg:border-[#1C1C1C] lg:border lg:rounded-full lg:bg-[#0C0A0A] lg:bg-opacity-60 lg:backdrop-blur-[80.5px] z-50 lg:invisible"
       ref={navRef}
     >
       <TransitionLink href="/">

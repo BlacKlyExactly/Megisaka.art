@@ -31,7 +31,7 @@ const Gallery = ({ gallery }: GalleryProps) => {
       className="space-y-4 lg:grid lg:grid-cols-3 lg:gap-3 lg:space-y-0 lg:invisible"
       ref={galleryRef}
     >
-      {gallery.map(({ alt, src, width, height }) => (
+      {gallery.map(({ alt, src, width, height, lqip }) => (
         <Image
           key={alt}
           alt={alt}
@@ -40,6 +40,8 @@ const Gallery = ({ gallery }: GalleryProps) => {
           height={height}
           loading="lazy"
           className="w-full"
+          placeholder="blur"
+          blurDataURL={lqip}
         />
       ))}
     </div>
@@ -52,6 +54,7 @@ type GalleryProps = {
     width: number;
     height: number;
     src: string;
+    lqip: string;
   }[];
 };
 

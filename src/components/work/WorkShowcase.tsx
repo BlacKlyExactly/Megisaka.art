@@ -12,6 +12,7 @@ import useDetectSwipeDirection, {
   Directions,
 } from '@/hooks/useDetectSwipeDirection';
 import useScrollShow from '@/hooks/useScrollShow';
+import TransitionLink from '../page-transition/TransitionLink';
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -81,7 +82,9 @@ const WorkShowcase = ({ className, works }: WorkShowcaseProps) => {
           <Headline heading="h3">{currentWork.title}</Headline>
           <p className="text-left">{currentWork.type}</p>
         </div>
-        <Button className="px-4 py-4 h-fit">View</Button>
+        <TransitionLink href={`/portfolio/${currentWork.slug.current}`}>
+          <Button className="px-4 py-4 h-fit">View</Button>
+        </TransitionLink>
       </div>
     </div>
   );

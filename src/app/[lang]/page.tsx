@@ -26,6 +26,7 @@ const Home = async ({ params: { lang } }: LanguagePageProps) => {
   const heroSliderImages = header.heroSlider.map((source) => ({
     url: getImage(source, 612, 612),
     alt: source.alt,
+    lqip: source.asset.metadata.lqip,
   }));
 
   return (
@@ -49,6 +50,7 @@ const Home = async ({ params: { lang } }: LanguagePageProps) => {
               image: getImage(image, 612, 612),
               alt: image.alt,
               slug,
+              lqip: image.asset.metadata.lqip,
             }))}
           />
         </Section>

@@ -74,7 +74,7 @@ const PortfolioWork = async ({
   const currentBlock = lang === 'pl' ? showcasePl : showcaseEn;
 
   return (
-    <Main className="px-page-mobile lg:px-page" as="div">
+    <Main className="px-page-mobile lg:px-page pb-24" as="div">
       <header>
         <div className="flex-col flex lg:flex-row lg:justify-between lg:gap-7">
           <SectionContent title={title} heading="h1" className="!px-0" />
@@ -103,6 +103,7 @@ const PortfolioWork = async ({
             width: 500,
             height: 500,
             src: getImage(img, 500, 500),
+            lqip: img.asset.metadata.lqip,
           }))}
         />
         {currentBlock && (

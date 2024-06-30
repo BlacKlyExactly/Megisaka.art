@@ -18,7 +18,7 @@ const HeroSlider = ({
   slides,
 }: {
   className?: string;
-  slides: { alt: string; url: string }[];
+  slides: { alt: string; url: string; lqip: string }[];
 }) => {
   const [slide, setSlide] = useState(0);
 
@@ -105,7 +105,7 @@ const HeroSlider = ({
           ref={slidesRef}
           className="flex overflow-hidden gap-2 px-page-mobile slider lg:px-0 lg:overflow-hidden"
         >
-          {slides.map(({ alt, url }, idx) => (
+          {slides.map(({ alt, url, lqip }, idx) => (
             <Image
               key={alt + url}
               src={url}
@@ -113,6 +113,8 @@ const HeroSlider = ({
               width={612}
               height={556}
               priority
+              placeholder="blur"
+              blurDataURL={lqip}
               className="border-b-4 border-crimson pointer-events-none w-full lg:border-0 shrink-0"
             />
           ))}
