@@ -1,15 +1,16 @@
 'use client';
 
+import { useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 
 import Headline from '../ui/typography/Headline';
-import { cn } from '@/utils/cn';
-import { useRef } from 'react';
+import TransitionLink from '../page-transition/TransitionLink';
+import { SanitySlug } from '@/lib/sanity/requests';
 
 const DURATION = 0.3;
 
-const Work = ({ image, title, type, className, alt }: WorkProps) => {
+const Work = ({ image, title, type, className, alt, slug }: WorkProps) => {
   const infoRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
@@ -43,38 +44,40 @@ const Work = ({ image, title, type, className, alt }: WorkProps) => {
   };
 
   return (
-    <article
-      className={cn('aspect-square w-full relative overflow-hidden', className)}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div
-        className="hidden w-full h-full bg-crimson bg-opacity-75 relative z-[1] p-6 flex-col justify-end gap-2 opacity-0 lg:flex"
-        ref={infoRef}
+    <TransitionLink href={`/portfolio/${slug.current}`} className={className}>
+      <article
+        className="aspect-square w-full relative overflow-hidden"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        <div className="clip-path-full pointer-events-none">
-          <Headline
-            heading="h3"
-            className="!text-light pointer-events-none translate-y-full"
-          >
-            {title}
-          </Headline>
+        <div
+          className="hidden w-full h-full bg-crimson bg-opacity-75 relative z-[1] p-6 flex-col justify-end gap-2 opacity-0 lg:flex"
+          ref={infoRef}
+        >
+          <div className="clip-path-full pointer-events-none">
+            <Headline
+              heading="h3"
+              className="!text-light pointer-events-none translate-y-full"
+            >
+              {title}
+            </Headline>
+          </div>
+          <div className="clip-path-full pointer-events-none">
+            <p className=" text-xl font-bold pointer-events-none -translate-y-full">
+              {type}
+            </p>
+          </div>
         </div>
-        <div className="clip-path-full pointer-events-none">
-          <p className=" text-xl font-bold pointer-events-none -translate-y-full">
-            {type}
-          </p>
-        </div>
-      </div>
-      <Image
-        ref={imageRef}
-        src={image}
-        alt={alt}
-        className="border-b-4 border-crimson lg:border-none w-full h-full absolute top-0 left-0"
-        width={400}
-        height={400}
-      />
-    </article>
+        <Image
+          ref={imageRef}
+          src={image}
+          alt={alt}
+          className="border-b-4 border-crimson lg:border-none w-full h-full absolute top-0 left-0"
+          width={400}
+          height={400}
+        />
+      </article>
+    </TransitionLink>
   );
 };
 
@@ -83,6 +86,7 @@ export type WorkProps = {
   title: string;
   type: string;
   alt: string;
+  slug: SanitySlug;
   className?: string;
 };
 

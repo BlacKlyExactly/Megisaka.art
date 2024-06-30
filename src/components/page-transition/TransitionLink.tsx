@@ -14,16 +14,20 @@ const TransitionLink = ({
   const { push } = useRouter();
   const pathname = usePathname();
 
+  const lang = pathname.split('/')[1];
+
   preserveLang ??= true;
 
   const handleTransition = (e: MouseEvent) => {
     e.preventDefault();
 
-    const lang = pathname.split('/')[1];
-
     onClick && onClick();
 
-    if (href === pathname) return;
+    if (
+      `/${lang}${href}` === pathname ||
+      (href === '/' && `/${lang}${href}` === `${pathname}/`)
+    )
+      return;
 
     const transition = document.querySelector('#transition');
 

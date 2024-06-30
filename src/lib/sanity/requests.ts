@@ -82,11 +82,22 @@ export const fetchNav = async () => {
   return await sanityFetch<SanityDocument<Nav>>({ query: QUERY });
 };
 
-export type Work = SanityDocument<{
-  title: string;
-  slug: string;
-  type: I18nString;
-  image: SanityImage;
+export type Work<T = {}> = SanityDocument<
+  {
+    title: string;
+    slug: SanitySlug;
+    type: I18nString;
+    image: SanityImage;
+  } & T
+>;
+
+export type ExtendedWork = Work<{
+  programs: string;
+  realizationTime: I18nString;
+  description: I18nString;
+  gallery: SanityImage[];
+  showcasePl: any;
+  showcaseEn: any;
 }>;
 
 export const fetchWorks = async (count?: number) => {
@@ -94,6 +105,22 @@ export const fetchWorks = async (count?: number) => {
 
   const QUERY = `*[_type == "work"]{_id, _createdAt, title, slug, type, image}${countStr}|order(_createdAt desc)`;
   return await sanityFetch<SanityDocument<Work>[]>({ query: QUERY });
+};
+
+export const fetchWork = async (slug: string) => {
+  const QUERY = `*[_type == "work" && slug.current == '${slug}'][0]{_id, _createdAt, title, slug, type, image, gallery, description, realizationTime, programs, showcaseEn, showcasePl}`;
+
+  return await sanityFetch<SanityDocument<ExtendedWork> | null>({
+    query: QUERY,
+  });
+};
+
+export const fetchWorkSeo = async (slug: string) => {
+  const QUERY = `*[_type == "work" && slug.current == '${slug}'][0]{_id, image, title, description}`;
+
+  return await sanityFetch<SanityDocument<ExtendedWork>>({
+    query: QUERY,
+  });
 };
 
 export type Commission = {
@@ -145,6 +172,16 @@ export const fetchContact = async () => {
   return await sanityFetch<SanityDocument<Contact>>({ query: QUERY });
 };
 
+export type Portfolio = {
+  title: I18nString;
+  description: I18nString;
+};
+
+export const fetchPortfolio = async () => {
+  const QUERY = `*[_type == "portfolio"][0]{_id, title, description}`;
+  return await sanityFetch<SanityDocument<Portfolio>>({ query: QUERY });
+};
+
 export type I18nString = {
   pl: string;
   en: string;
@@ -152,4 +189,9 @@ export type I18nString = {
 
 export type SanityImage = SanityImageSource & {
   alt: string;
+};
+
+export type SanitySlug = {
+  current: string;
+  _type: 'slug';
 };

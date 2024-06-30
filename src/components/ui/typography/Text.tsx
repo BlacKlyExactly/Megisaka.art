@@ -1,4 +1,4 @@
-import { ElementType, HTMLAttributes } from 'react';
+import { ElementType, forwardRef, HTMLAttributes } from 'react';
 import { cva, VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/utils/cn';
@@ -27,14 +27,19 @@ interface TextProps<TElement extends ElementType = 'p' | 'li'>
   as?: TElement;
 }
 
-const Text = ({ as, children, size, className }: TextProps) => {
-  const Component = as ?? 'p';
+const Text = forwardRef<HTMLElement, TextProps>(
+  ({ as, children, size, className }, ref) => {
+    const Component = as ?? 'p';
 
-  return (
-    <Component className={cn(textVariants({ className, size }))}>
-      {children}
-    </Component>
-  );
-};
+    return (
+      //@ts-expect-error
+      <Component className={cn(textVariants({ className, size }))} ref={ref}>
+        {children}
+      </Component>
+    );
+  },
+);
+
+Text.displayName = 'Text';
 
 export default Text;

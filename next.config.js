@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    //remotePatterns: ['cdn.sanity.io', 'via.placeholder.com'],
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: 'https',

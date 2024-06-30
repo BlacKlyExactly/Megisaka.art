@@ -43,11 +43,12 @@ const Home = async ({ params: { lang } }: LanguagePageProps) => {
           </SectionContent>
           <WorkShowcase
             className="mt-10"
-            works={works.map(({ title, image, type }) => ({
+            works={works.map(({ title, image, type, slug }) => ({
               title,
               type: getTranslatedText(type, lang),
               image: getImage(image, 612, 612),
               alt: image.alt,
+              slug,
             }))}
           />
         </Section>

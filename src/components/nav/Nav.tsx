@@ -12,6 +12,7 @@ import HamburgerMenu from './HamburgerMenu';
 import { getTranslatedText } from '@/utils/getTranslatedText';
 import { Language as Lang } from '@/utils/langPageProps';
 import { Nav as NavReq } from '@/lib/sanity/requests';
+import { cn } from '@/utils/cn';
 
 export const selects = [
   { id: 'home', href: '/' },
@@ -24,6 +25,8 @@ export const selects = [
 
 const Nav = ({ nav, lang }: NavProps) => {
   const navRef = useRef<HTMLElement>(null);
+
+  const pathname = usePathname();
 
   useLayoutEffect(() => {
     const handleResize = () => {
@@ -88,7 +91,16 @@ const Nav = ({ nav, lang }: NavProps) => {
             className="hidden lg:block hover:text-crimson transition-colors"
           >
             <TransitionLink href={href}>
-              <Text size="nav">{getTranslatedText(nav[id], lang)}</Text>
+              <Text
+                size="nav"
+                className={cn({
+                  'text-crimson font-bold':
+                    `/${lang}${href}` === pathname ||
+                    (href === '/' && `/${lang}${href}` === `${pathname}/`),
+                })}
+              >
+                {getTranslatedText(nav[id], lang)}
+              </Text>
             </TransitionLink>
           </li>
         ))}

@@ -2,9 +2,9 @@ import { Metadata } from 'next';
 
 import WorkShowcase from '@/components/work/WorkShowcase';
 import Main from '@/components/ui/section/Main';
-import Headline from '@/components/ui/typography/Headline';
+import SectionContent from '@/components/ui/section/SectionContent';
 import { getImage } from '@/lib/sanity/getImage';
-import { fetchWorks } from '@/lib/sanity/requests';
+import { fetchPortfolio, fetchWorks } from '@/lib/sanity/requests';
 import { getTranslatedText } from '@/utils/getTranslatedText';
 import { LanguagePageProps } from '@/utils/langPageProps';
 
@@ -18,19 +18,24 @@ export const metadata: Metadata = {
 
 const Portfolio = async ({ params: { lang } }: LanguagePageProps) => {
   const works = await fetchWorks();
+  const portfolio = await fetchPortfolio();
 
   return (
     <Main>
-      <Headline heading="h1" className="px-page-mobile lg:px-page">
-        Portfolio
-      </Headline>
+      <SectionContent
+        title={getTranslatedText(portfolio.title, lang)}
+        heading="h1"
+      >
+        {getTranslatedText(portfolio.description, lang)}
+      </SectionContent>
       <WorkShowcase
         className="mt-8 pb-24 lg:pb-0"
-        works={works.map(({ title, image, type }) => ({
+        works={works.map(({ title, image, type, slug }) => ({
           title,
           type: getTranslatedText(type, lang),
           image: getImage(image, 612, 612),
           alt: image.alt,
+          slug,
         }))}
       />
     </Main>

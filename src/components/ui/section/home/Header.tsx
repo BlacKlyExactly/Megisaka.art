@@ -92,7 +92,7 @@ const Header = ({ header, lang, sliderImages }: HeaderProps) => {
       <p className="text-[128px] font-semibold opacity-[0.025] -top-6 absolute left-16 z-[-1] lg:hidden">
         ART IST
       </p>
-      <p className="split hidden text-[403px] tracking-tighter font-semibold opacity-[0.025] -bottom-8 absolute left-0 z-[-1] lg:block w-full whitespace-nowrap clip-path invisible">
+      <p className="split hidden text-[403px] tracking-tighter font-semibold opacity-[0.025] -bottom-8 absolute left-0 z-[-1] lg:block w-full whitespace-nowrap clip-path invisible [&_.char]:translate-y-full">
         ARTIST
       </p>
       <div ref={sprinklesRef} className="absolute bottom-0 left-0 lg:invisible">

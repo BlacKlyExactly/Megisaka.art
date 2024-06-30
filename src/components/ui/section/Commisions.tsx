@@ -26,8 +26,6 @@ const Commisions = ({
   const showed = useScrollShow(commisionsRef);
 
   useLayoutEffect(() => {
-    console.log(commisionsRef);
-
     if (!showed || !commisionsRef.current || window.innerWidth < 1024) return;
 
     const [

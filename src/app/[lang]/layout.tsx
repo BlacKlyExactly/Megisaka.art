@@ -3,17 +3,15 @@ import type { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Toaster } from 'react-hot-toast';
 
-import Nav from '@/components/nav/Nav';
 import Footer from '@/components/ui/section/Footer';
+import Contact from '@/components/ui/section/Contact';
+import Nav from '@/components/nav/Nav';
 import AnimatedCursor from '@/components/AnimatedCursor';
 import PageTransition from '@/components/page-transition/PageTransition';
 import SmoothScrollbar from '@/components/SmoothScrollbar';
-import ContactForm from '@/components/forms/ContactForm';
-import SectionContent from '@/components/ui/section/SectionContent';
 import { cn } from '@/utils/cn';
 import { LanguagePageProps } from '@/utils/langPageProps';
 import { fetchContact, fetchNav } from '@/lib/sanity/requests';
-import { getTranslatedText } from '@/utils/getTranslatedText';
 
 export const metadata: Metadata = {
   title: 'Megisaka Art | VTuber Design & Digital Art by Megisaka',
@@ -47,14 +45,7 @@ export default async function RootLayout({
         <div id="scrollbar" className="h-screen max-w-screen w-full">
           <div className="lg:max-w-[1620px] w-screen lg:mx-auto relative lg:pr-0">
             {children}
-            <section className="flex flex-col gap-6 lg:gap-0">
-              <SectionContent title={getTranslatedText(contact.title, lang)}>
-                {getTranslatedText(contact.description, lang)}
-              </SectionContent>
-              <div className="px-page-mobile lg:px-page">
-                <ContactForm form={contact.form} lang={lang} />
-              </div>
-            </section>
+            <Contact contact={contact} lang={lang} />
           </div>
           <Footer lang={lang} />
         </div>

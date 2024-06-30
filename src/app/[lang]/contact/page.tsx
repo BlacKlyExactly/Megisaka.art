@@ -10,5 +10,5 @@ export const metadata: Metadata = {
     'contact Megisaka, commission inquiries, VTuber commissions, digital art, custom VTubers, artist contact, Megisaka Art, collaboration inquiries, art inquiries',
 };
 
-const Contact = () => <Main></Main>;
+const Contact = () => <Main className="!pb-0"></Main>;
 export default Contact;

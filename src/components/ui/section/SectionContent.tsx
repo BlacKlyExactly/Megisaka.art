@@ -6,8 +6,14 @@ import gsap, { Circ } from 'gsap';
 import Headline from '../typography/Headline';
 import Text from '../typography/Text';
 import useScrollShow from '@/hooks/useScrollShow';
+import { cn } from '@/utils/cn';
 
-const SectionContent = ({ children, title }: SectionContentProps) => {
+const SectionContent = ({
+  children,
+  title,
+  heading,
+  className,
+}: SectionContentProps) => {
   const sectionContentRef = useRef<HTMLDivElement>(null);
   const showed = useScrollShow(sectionContentRef);
 
@@ -26,10 +32,15 @@ const SectionContent = ({ children, title }: SectionContentProps) => {
     gsap.to([tiltleEl, textEl], { y: 0, ease: Circ.easeOut, delay: 0.2 });
   }, [showed]);
 
+  heading ??= 'h2';
+
   return (
-    <div className="px-page-mobile lg:px-page" ref={sectionContentRef}>
+    <div
+      className={cn('px-page-mobile lg:px-page', className)}
+      ref={sectionContentRef}
+    >
       <div className="clip-path-full">
-        <Headline heading="h2" className="lg:translate-y-full">
+        <Headline heading={heading} className="lg:translate-y-full">
           {title}
         </Headline>
       </div>
@@ -47,6 +58,8 @@ const SectionContent = ({ children, title }: SectionContentProps) => {
 
 type SectionContentProps = PropsWithChildren<{
   title: string;
+  heading?: 'h1' | 'h2';
+  className?: string;
 }>;
 
 export default SectionContent;
