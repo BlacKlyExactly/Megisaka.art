@@ -34,6 +34,10 @@ export default async function RootLayout({
     <html lang="en">
       <link rel="icon" href="/images/favicon.svg" sizes="any" />
       <meta name="theme-color" content="#F30637" />
+      <meta
+        name="google-site-verification"
+        content="2X5twZ6QCtD_qFLdghfbFGdK8oG3N_UP5UwE-VklTlw"
+      />
       <body className={cn('bg-dark text-light font-spartan relative overflow')}>
         <AnimatedCursor />
         <PageTransition />
