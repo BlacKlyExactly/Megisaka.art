@@ -43,7 +43,7 @@ export const sendMessage = actionClient
 
     try {
       await mg.messages.create(process.env.MAILGUN_MAIL, {
-        from: `Megisaka <megisaka@${process.env.MAILGUN_MAIL}>`,
+        from: `Megisaka <contact@megisaka.art>`,
         to: [process.env.ARTIST_MAIL],
         subject: `Nowa wiadomość od ${name}`,
         html: /*html*/ `

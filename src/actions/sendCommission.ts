@@ -90,7 +90,7 @@ export const sendCommission = actionClient
 
         const messages = [
           mg.messages.create(process.env.MAILGUN_MAIL, {
-            from: `Megisaka <megisaka@${process.env.MAILGUN_MAIL}>`,
+            from: `Megisaka <commissions@megisaka.art>`,
             to: [process.env.ARTIST_MAIL],
             subject: `Nowe zlecenie od ${name}`,
             html: /*html*/ `
@@ -108,7 +108,7 @@ export const sendCommission = actionClient
           `,
           }),
           mg.messages.create(process.env.MAILGUN_MAIL, {
-            from: `Megisaka <megisaka@${process.env.MAILGUN_MAIL}>`,
+            from: `Megisaka <commissions@megisaka.art>`,
             to: email,
             subject: 'Commission confirmaiion',
             html: /*html*/ `
