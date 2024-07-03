@@ -5,7 +5,7 @@ import { PortableText } from 'next-sanity';
 import PortfolioData from '@/components/portfolio/PortfolioData';
 import Main from '@/components/ui/section/Main';
 import Headline from '@/components/ui/typography/Headline';
-import Text, { textVariants } from '@/components/ui/typography/Text';
+import { textVariants } from '@/components/ui/typography/Text';
 import Sprinkles from '@/components/ui/decorations/Sprinkles';
 import SectionContent from '@/components/ui/section/SectionContent';
 import Gallery from '@/components/portfolio/Gallery';

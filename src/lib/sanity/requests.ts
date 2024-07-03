@@ -182,6 +182,17 @@ export const fetchPortfolio = async () => {
   return await sanityFetch<SanityDocument<Portfolio>>({ query: QUERY });
 };
 
+export type About = {
+  title: I18nString;
+  contentPl: any;
+  contentEn: any;
+};
+
+export const fetchAbout = async () => {
+  const QUERY = `*[_type == "about"][0]{_id, title, contentPl, contentEn}`;
+  return await sanityFetch<SanityDocument<About>>({ query: QUERY });
+};
+
 export type I18nString = {
   pl: string;
   en: string;

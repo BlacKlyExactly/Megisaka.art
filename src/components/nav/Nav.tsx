@@ -18,7 +18,7 @@ export const selects = [
   { id: 'home', href: '/' },
   { id: 'portfolio', href: '/portfolio' },
   { id: 'commissions', href: '/commissions' },
-  { id: 'about', href: '#' },
+  { id: 'about', href: '/about' },
   { id: 'contact', href: '/contact' },
   { id: 'tos', href: '/tos' },
 ] as const satisfies { id: string; href: string }[];

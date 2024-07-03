@@ -17,7 +17,7 @@ const Contact = ({ lang, contact }: ContactProps) => {
 
   return (
     <Component
-      className={cn('flex flex-col gap-6 lg:gap-0', {
+      className={cn('flex flex-col gap-6 lg:gap-0 relative', {
         'lg:py-10': isContactPage,
       })}
     >
