@@ -9,7 +9,7 @@ import { LanguagePageProps } from '@/utils/langPageProps';
 import { cn } from '@/utils/cn';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Megisaka Art',
+  title: 'Terms of Service | Megisaka',
   description:
     'Read the Terms of Service for Megisaka Art. Understand the guidelines and policies for commissioning custom VTuber designs and digital artworks from Megisaka.',
   keywords:

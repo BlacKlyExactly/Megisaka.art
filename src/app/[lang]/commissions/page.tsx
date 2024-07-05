@@ -6,7 +6,7 @@ import { fetchCommission, fetchCommissionSection } from '@/lib/sanity/requests';
 import { LanguagePageProps } from '@/utils/langPageProps';
 
 export const metadata: Metadata = {
-  title: 'Art Commissions | Megisaka Art',
+  title: 'Art Commissions | Megisaka',
   description:
     'Commission custom VTuber designs and digital artworks from Megisaka. Get personalized, high-quality digital art tailored to your needs and bring your vision to life.',
   keywords:

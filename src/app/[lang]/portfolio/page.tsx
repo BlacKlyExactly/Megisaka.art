@@ -9,7 +9,7 @@ import { getTranslatedText } from '@/utils/getTranslatedText';
 import { LanguagePageProps } from '@/utils/langPageProps';
 
 export const metadata: Metadata = {
-  title: 'Portfolio | Megisaka Art',
+  title: 'Portfolio | Megisaka',
   description:
     'Explore the diverse portfolio of Megisaka, featuring stunning VTuber designs and various digital artworks. Witness the creativity and skill behind each unique piece.',
   keywords:

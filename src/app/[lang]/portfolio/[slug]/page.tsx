@@ -28,7 +28,7 @@ export const generateMetadata = async ({
   const imageUrl = getImage(image, 500, 500);
 
   return {
-    title: `${title} | Megisaka Art`,
+    title: `${title} | Megisaka`,
     description: description.en,
     openGraph: {
       images: [imageUrl],

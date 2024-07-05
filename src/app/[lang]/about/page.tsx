@@ -9,7 +9,7 @@ import { cn } from '@/utils/cn';
 import { textVariants } from '@/components/ui/typography/Text';
 
 export const metadata: Metadata = {
-  title: 'About | Megisaka Art',
+  title: 'About me | Megisaka',
   description:
     'Learn more about Megisaka, a talented VTuber designer and digital artist. Discover her passion for creating unique VTuber designs and diverse digital artworks.',
   keywords:

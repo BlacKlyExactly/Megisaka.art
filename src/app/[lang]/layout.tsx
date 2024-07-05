@@ -16,9 +16,9 @@ import { LanguagePageProps } from '@/utils/langPageProps';
 import { fetchContact, fetchNav } from '@/lib/sanity/requests';
 
 export const metadata: Metadata = {
-  title: 'Megisaka Art | VTuber Design & Digital Art',
+  title: 'Megisaka | VTuber Design & Digital Art',
   description:
-    "Welcome to Megisaka Art! Discover the creative world of Megisaka, specializing in VTuber design and digital art. Explore unique artworks, commission custom pieces, and learn more about Megisaka's artistic journey.",
+    'Welcome to my world! Explore VTuber design, digital art, and custom commissions by Megisaka. Discover a creative journey like no other!',
   keywords:
     'Megisaka, VTuber design, digital art, artist website, custom VTubers, digital artist, VTuber creator, Megisaka Art, unique digital art',
 };
