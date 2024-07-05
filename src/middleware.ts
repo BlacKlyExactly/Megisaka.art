@@ -25,7 +25,8 @@ export async function middleware(request: NextRequest) {
     pathnameHasLocale ||
     pathname.startsWith('/fonts') ||
     pathname.startsWith('/images') ||
-    pathname.startsWith('/sitemap.xml')
+    pathname.startsWith('/sitemap.xml') ||
+    pathname.startsWith('/favicon.ico')
   )
     return;
 
