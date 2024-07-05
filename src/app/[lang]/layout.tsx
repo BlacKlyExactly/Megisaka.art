@@ -33,15 +33,17 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <GoogleAnalytics gaId="GTM-59DSMJRD" />
-      <Hotjar />
-      <link rel="icon" href="/images/favicon.svg" sizes="any" />
-      <meta name="theme-color" content="#F30637" />
-      <meta
-        name="google-site-verification"
-        content="2X5twZ6QCtD_qFLdghfbFGdK8oG3N_UP5UwE-VklTlw"
-      />
+      <head>
+        <link rel="icon" href="/images/favicon.svg" sizes="any" />
+        <meta name="theme-color" content="#F30637" />
+        <meta
+          name="google-site-verification"
+          content="2X5twZ6QCtD_qFLdghfbFGdK8oG3N_UP5UwE-VklTlw"
+        />
+      </head>
       <body className={cn('bg-dark text-light font-spartan relative overflow')}>
+        <GoogleAnalytics gaId="GTM-59DSMJRD" />
+        <Hotjar />
         <AnimatedCursor />
         <PageTransition />
         <SmoothScrollbar />
