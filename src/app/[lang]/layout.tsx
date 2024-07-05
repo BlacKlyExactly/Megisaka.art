@@ -2,6 +2,7 @@ import '../globals.css';
 import type { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Toaster } from 'react-hot-toast';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import Footer from '@/components/ui/section/Footer';
 import Contact from '@/components/ui/section/Contact';
@@ -9,6 +10,7 @@ import Nav from '@/components/nav/Nav';
 import AnimatedCursor from '@/components/AnimatedCursor';
 import PageTransition from '@/components/page-transition/PageTransition';
 import SmoothScrollbar from '@/components/SmoothScrollbar';
+import Hotjar from '@/components/Hotjar';
 import { cn } from '@/utils/cn';
 import { LanguagePageProps } from '@/utils/langPageProps';
 import { fetchContact, fetchNav } from '@/lib/sanity/requests';
@@ -32,6 +34,8 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <GoogleAnalytics gaId="GTM-59DSMJRD" />
+      <Hotjar />
       <link rel="icon" href="/images/favicon.svg" sizes="any" />
       <meta name="theme-color" content="#F30637" />
       <meta
