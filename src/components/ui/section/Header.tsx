@@ -6,11 +6,11 @@ import gsap, { Circ } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import Scrollbar from 'smooth-scrollbar';
 
-import HeroSlider from '../../../HeroSlider';
-import Button from '../../Button';
-import Sprinkles from '../../decorations/Sprinkles';
-import Headline from '../../typography/Headline';
-import Text from '../../typography/Text';
+import HeroSlider from '../../HeroSlider';
+import Button from '../Button';
+import Sprinkles from '../decorations/Sprinkles';
+import Headline from '../typography/Headline';
+import Text from '../typography/Text';
 import { Home } from '@/lib/sanity/requests';
 import { Language } from '@/utils/langPageProps';
 import { getTranslatedText } from '@/utils/getTranslatedText';
@@ -114,7 +114,7 @@ const Header = ({ header, lang, sliderImages }: HeaderProps) => {
         <div className="clip-path-full">
           <Text
             size="heading"
-            className="mt-4 !font-light lg:w-[75%] lg:mt-8 lg:-translate-y-full text-center lg:text-left"
+            className="mt-4 !font-light lg:w-[82%] lg:mt-8 lg:-translate-y-full text-center lg:text-left"
           >
             {getTranslatedText(description, lang)}
           </Text>

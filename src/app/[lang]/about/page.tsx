@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { PortableText } from '@portabletext/react';
 import Main from '@/components/ui/section/Main';
 import Headline from '@/components/ui/typography/Headline';
@@ -6,6 +7,14 @@ import { getTranslatedText } from '@/utils/getTranslatedText';
 import { LanguagePageProps } from '@/utils/langPageProps';
 import { cn } from '@/utils/cn';
 import { textVariants } from '@/components/ui/typography/Text';
+
+export const metadata: Metadata = {
+  title: 'About | Megisaka Art',
+  description:
+    'Learn more about Megisaka, a talented VTuber designer and digital artist. Discover her passion for creating unique VTuber designs and diverse digital artworks.',
+  keywords:
+    'about Megisaka, digital artist, emotes creator, VTuber artist, concept art, streaming assets, fanart artist, loading screens, artist bio, Megisaka art',
+};
 
 const About = async ({ params: { lang } }: LanguagePageProps) => {
   const { title, contentEn, contentPl } = await fetchAbout();

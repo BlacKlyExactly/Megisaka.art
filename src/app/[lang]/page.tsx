@@ -3,7 +3,7 @@
 import WorkShowcase from '@/components/work/WorkShowcase';
 import SectionContent from '@/components/ui/section/SectionContent';
 import Commisions from '@/components/ui/section/Commisions';
-import Header from '@/components/ui/section/home/Header';
+import Header from '@/components/ui/section/Header';
 import {
   fetchCommission,
   fetchCommissionSection,

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description:
     'Explore the diverse portfolio of Megisaka, featuring stunning VTuber designs and various digital artworks. Witness the creativity and skill behind each unique piece.',
   keywords:
-    'Megisaka portfolio, VTuber designs, digital art portfolio, VTuber creations, Megisaka Art, digital artist portfolio, unique digital art, VTuber gallery',
+    'Megisaka portfolio, emotes, VTuber designs, streaming assets, digital art portfolio, concept art, fanart, loading screens, digital artist, Megisaka art',
 };
 
 const Portfolio = async ({ params: { lang } }: LanguagePageProps) => {

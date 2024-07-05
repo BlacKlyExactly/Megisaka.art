@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     'Commission custom VTuber designs and digital artworks from Megisaka. Get personalized, high-quality digital art tailored to your needs and bring your vision to life.',
   keywords:
-    'art commissions, custom VTubers, VTuber commissions, digital art, Megisaka commissions, personalized digital art, custom art, VTuber artist, digital art commissions',
+    'art commissions, custom emotes, VTuber commissions, streaming assets, Megisaka commissions, personalized digital art, fanart commissions, concept art, loading screens, custom art',
 };
 
 const CommissionsPage = async ({ params: { lang } }: LanguagePageProps) => {
