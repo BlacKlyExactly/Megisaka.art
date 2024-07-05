@@ -23,9 +23,12 @@ const TransitionLink = ({
 
     onClick && onClick();
 
+    console.log(pathname, href);
+
     if (
       `/${lang}${href}` === pathname ||
-      (href === '/' && `/${lang}${href}` === `${pathname}/`)
+      (href === '/' && `/${lang}${href}` === `${pathname}/`) ||
+      pathname === href
     )
       return;
 
