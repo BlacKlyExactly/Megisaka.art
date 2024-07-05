@@ -6,12 +6,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...works.map(({ slug, _createdAt }) => ({
-      url: `https://megisaka.art/portfolio/${slug}`,
+      url: `https://megisaka.art/portfolio/${slug.current}`,
       lastModified: _createdAt,
       alternates: {
         languages: {
-          en: `https://megisaka.art/en/portfolio/${slug}`,
-          pl: `https://megisaka.art/pl/portfolio/${slug}`,
+          en: `https://megisaka.art/en/portfolio/${slug.current}`,
+          pl: `https://megisaka.art/pl/portfolio/${slug.current}`,
         },
       },
     })),
