@@ -3,6 +3,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import gsap from 'gsap';
+import { usePathname } from 'next/navigation';
 
 const pointerTags = ['button', 'a', 'article', 'input', 'textarea', 'label'];
 
@@ -11,6 +12,8 @@ const AnimatedCursor = () => {
 
   const cursor = React.useRef<HTMLDivElement>(null);
   const timer = React.useRef<NodeJS.Timeout | null>(null);
+
+  const pathname = usePathname();
 
   React.useEffect(() => {
     const cursorEl = cursor.current;
@@ -79,6 +82,10 @@ const AnimatedCursor = () => {
       );
     };
   }, [isPointing]);
+
+  React.useEffect(() => {
+    setPointingState(false);
+  }, [pathname]);
 
   return (
     <Cursor ref={cursor}>
