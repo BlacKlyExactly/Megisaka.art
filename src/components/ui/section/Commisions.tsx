@@ -8,7 +8,7 @@ import CommisionsForm from '../../forms/CommisionsForm';
 import Headline from '../typography/Headline';
 import Section from './Section';
 import useScrollShow from '@/hooks/useScrollShow';
-import { CommisionsSection } from '@/lib/sanity/requests';
+import { CommissionsSection } from '@/lib/sanity/requests';
 import { Language } from '@/utils/langPageProps';
 import { getTranslatedText } from '@/utils/getTranslatedText';
 import { cn } from '@/utils/cn';
@@ -95,7 +95,7 @@ const Commisions = ({
 
 type CommisionsProps = {
   open: boolean;
-  commissionSection: CommisionsSection;
+  commissionSection: CommissionsSection;
   lang?: Language;
   isSection?: boolean;
   headline?: 'h2' | 'h1';
