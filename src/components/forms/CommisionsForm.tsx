@@ -17,7 +17,7 @@ import Select, {
   SelectTrigger,
   SelectValue,
 } from '../ui/form/Select';
-import { CommisionsSection } from '@/lib/sanity/requests';
+import { CommissionsSection } from '@/lib/sanity/requests';
 import Textarea from '../ui/form/Textarea';
 import Error from '../ui/form/Error';
 import useScrollShow from '@/hooks/useScrollShow';
@@ -218,7 +218,7 @@ const CommisionsForm = ({ form, lang }: CommissionsFormProps) => {
 };
 
 type CommissionsFormProps = {
-  form: CommisionsSection['form'];
+  form: CommissionsSection['form'];
   lang?: Language;
 };
 
