@@ -77,10 +77,10 @@ const Nav = ({ nav, lang }: NavProps) => {
         {/* <Text size="navHome">Megisaka</Text> */}
         <Image
           alt="Megisaka"
-          src="/images/logo.png"
+          src="/images/logo_new.png"
           width={128}
           height={35}
-          className="aspect-[1407/384] w-32 relative z-[1000]"
+          className="aspect-[980/312] w-32 relative z-[1000] mt-2"
           priority
         />
       </TransitionLink>

@@ -20,7 +20,7 @@ export const fetchHome = async () => {
   return await sanityFetch<SanityDocument<Home>>({ query: QUERY });
 };
 
-export type CommisionsSection = SanityDocument<{
+export type CommissionsSection = SanityDocument<{
   title: I18nString;
   stateTexts: {
     open: I18nString;
@@ -55,7 +55,9 @@ export type CommisionsSection = SanityDocument<{
 
 export const fetchCommissionSection = async () => {
   const QUERY = `*[_type == "commissionSection"][0]{_id, title, stateTexts, form}`;
-  return await sanityFetch<SanityDocument<CommisionsSection>>({ query: QUERY });
+  return await sanityFetch<SanityDocument<CommissionsSection>>({
+    query: QUERY,
+  });
 };
 
 export type Footer = SanityDocument<{
