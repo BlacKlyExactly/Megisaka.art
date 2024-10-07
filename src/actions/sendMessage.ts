@@ -10,7 +10,7 @@ export const sendMessage = actionClient
   .action(async ({ parsedInput: { name, email, description, bkuXk05 } }) => {
     const { exceeded, limit, reset, remaining } = await ratelimit();
 
-    if (exceeded) {
+    /*  if (exceeded) {
       console.error(`Exceeded ratelimit: ${limit}, ${remaining}, ${reset}`);
 
       return {
@@ -19,7 +19,7 @@ export const sendMessage = actionClient
           en: 'Rate limit exceeded. Try again later',
         },
       };
-    }
+    } */
 
     //Honeypot
     if (bkuXk05) {

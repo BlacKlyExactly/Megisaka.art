@@ -14,7 +14,7 @@ export const sendCommission = actionClient
     async ({
       parsedInput: { name, email, artType, files, description, dc30ea9 },
     }) => {
-      const { exceeded, limit, reset, remaining } = await ratelimit();
+      /* const { exceeded, limit, reset, remaining } = await ratelimit();
 
       if (exceeded) {
         console.error(`Exceeded ratelimit: ${limit}, ${remaining}, ${reset}`);
@@ -25,7 +25,7 @@ export const sendCommission = actionClient
             en: 'Rate limit exceeded. Try again later',
           },
         };
-      }
+      } */
 
       //Honeypot
       if (dc30ea9) {
