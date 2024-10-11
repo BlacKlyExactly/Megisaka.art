@@ -1,5 +1,3 @@
-'use server';
-
 import WorkShowcase from '@/components/work/WorkShowcase';
 import SectionContent from '@/components/ui/section/SectionContent';
 import Commisions from '@/components/ui/section/Commisions';
