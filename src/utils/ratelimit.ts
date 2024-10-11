@@ -6,12 +6,12 @@ import { headers } from 'next/headers';
 
 const rl = new Ratelimit({
   redis: kv,
-  limiter: Ratelimit.slidingWindow(5, '3600s'),
+  limiter: Ratelimit.slidingWindow(5, '15 s'),
 });
 
 const ratelimit = async () => {
   if (process.env.NODE_ENV === 'production') {
-    const ip = headers().get('x-forwarded-for') || '127.0.0.1';
+    const ip = headers().get('x-forwarded-for') ?? '127.0.0.1';
     const { limit, reset, remaining } = await rl.limit(ip);
 
     return {

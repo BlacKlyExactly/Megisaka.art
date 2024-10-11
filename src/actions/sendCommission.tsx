@@ -2,11 +2,13 @@
 
 import { SanityImageAssetDocument } from 'next-sanity';
 
-import { mg } from '@/lib/mailgun';
 import { actionClient } from '@/lib/safe-action';
 import { client } from '@/lib/sanity/client';
 import { sendCommissionSchemaFd } from '@/schemas/sendCommissionSchema';
 import ratelimit from '@/utils/ratelimit';
+import { resend } from '@/lib/resend';
+import CommissionArtistMail from '@/components/emails/CommissionArtistMail';
+import CommissionClientMail from '@/components/emails/CommissionClientMail';
 
 export const sendCommission = actionClient
   .schema(sendCommissionSchemaFd)
@@ -14,7 +16,7 @@ export const sendCommission = actionClient
     async ({
       parsedInput: { name, email, artType, files, description, dc30ea9 },
     }) => {
-      /* const { exceeded, limit, reset, remaining } = await ratelimit();
+      const { exceeded, limit, reset, remaining } = await ratelimit();
 
       if (exceeded) {
         console.error(`Exceeded ratelimit: ${limit}, ${remaining}, ${reset}`);
@@ -25,7 +27,7 @@ export const sendCommission = actionClient
             en: 'Rate limit exceeded. Try again later',
           },
         };
-      } */
+      }
 
       //Honeypot
       if (dc30ea9) {
@@ -89,34 +91,31 @@ export const sendCommission = actionClient
         }
 
         const messages = [
-          mg.messages.create(process.env.MAILGUN_MAIL, {
-            from: `Megisaka <commissions@megisaka.art>`,
-            to: [process.env.ARTIST_MAIL],
-            subject: `Nowe zlecenie od ${name}`,
-            html: /*html*/ `
-          <h1>Nowe zlecenie</h1>
-          <br>
-          <p>Nazwa: ${name}</p>
-          <p>Email: ${email}</p>
-          <p>Typ rysunku: ${artType}</p>
-          <p>Opis: ${description}</p><br>
-          <p>Załączniki:</p>
-          ${assets.map(
-            (asset) =>
-              /*html*/ `<img style="width: 50%" src="${asset.url}"><br/>`,
-          )}
-          `,
-          }),
-          mg.messages.create(process.env.MAILGUN_MAIL, {
-            from: `Megisaka <commissions@megisaka.art>`,
+          resend.emails.send({
+            from: 'Megisaka <noreply@megisaka.art>',
             to: email,
             subject: 'Commission confirmaiion',
-            html: /*html*/ `
-          <h1>Commission confirmaiion</h1><br>
-          <p>Hi!<br>I have recieved your commission and I'm gonna contact with you soon :3<br>If you have any questions, contact with me.</p>
-          <p>Mail: <b>megisapolska@gmail.com</b><br>Discord: <b>megisaka</b></p></p>
-          <p>Greetings<br><b>Megisaka</b></p>
-          `,
+            react: (
+              <CommissionClientMail
+                baseUrl="https://megisaka.art"
+                name={name}
+              />
+            ),
+          }),
+          resend.emails.send({
+            from: 'Megisaka <noreply@megisaka.art>',
+            to: process.env.ARTIST_MAIL,
+            subject: `Nowe zlecenie od ${name}`,
+            react: (
+              <CommissionArtistMail
+                baseUrl="https://megisaka.art"
+                name={name}
+                email={email}
+                artType={artType}
+                description={description}
+                assets={assets}
+              />
+            ),
           }),
         ];
 

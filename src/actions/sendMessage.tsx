@@ -1,6 +1,8 @@
 'use server';
 
-import { mg } from '@/lib/mailgun';
+import MessageArtistMail from '@/components/emails/MessageArtistMail';
+import MessageClientMail from '@/components/emails/MessageClientMail';
+import { resend } from '@/lib/resend';
 import { actionClient } from '@/lib/safe-action';
 import { sendMessageSchemaFd } from '@/schemas/sendMessageSchema';
 import ratelimit from '@/utils/ratelimit';
@@ -10,7 +12,7 @@ export const sendMessage = actionClient
   .action(async ({ parsedInput: { name, email, description, bkuXk05 } }) => {
     const { exceeded, limit, reset, remaining } = await ratelimit();
 
-    /*  if (exceeded) {
+    if (exceeded) {
       console.error(`Exceeded ratelimit: ${limit}, ${remaining}, ${reset}`);
 
       return {
@@ -19,7 +21,7 @@ export const sendMessage = actionClient
           en: 'Rate limit exceeded. Try again later',
         },
       };
-    } */
+    }
 
     //Honeypot
     if (bkuXk05) {
@@ -42,18 +44,31 @@ export const sendMessage = actionClient
       };
 
     try {
-      await mg.messages.create(process.env.MAILGUN_MAIL, {
-        from: `Megisaka <contact@megisaka.art>`,
-        to: [process.env.ARTIST_MAIL],
-        subject: `Nowa wiadomość od ${name}`,
-        html: /*html*/ `
-          <h1>Nowa wiadomość</h1>
-          <br>
-          <p>Nazwa: ${name}</p>
-          <p>Email: ${email}</p>
-          <p>Opis: ${description}</p><br>
-          `,
-      });
+      const messages = [
+        resend.emails.send({
+          from: 'Megisaka <noreply@megisaka.art>',
+          to: email,
+          subject: 'Message confirmation',
+          react: (
+            <MessageClientMail baseUrl="https://megisaka.art" name={name} />
+          ),
+        }),
+        resend.emails.send({
+          from: 'Megisaka <noreply@megisaka.art>',
+          to: process.env.ARTIST_MAIL,
+          subject: `Nowa wiadomość od ${name}`,
+          react: (
+            <MessageArtistMail
+              baseUrl="https://megisaka.art"
+              name={name}
+              email={email}
+              description={description}
+            />
+          ),
+        }),
+      ];
+
+      await Promise.all(messages);
 
       return {
         success: {
