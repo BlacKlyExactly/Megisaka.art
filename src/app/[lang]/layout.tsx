@@ -1,6 +1,7 @@
 import '../globals.css';
 import type { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from 'react-hot-toast';
 import { GoogleAnalytics } from '@next/third-parties/google';
 
@@ -48,6 +49,7 @@ export default async function RootLayout({
         <PageTransition />
         <SmoothScrollbar />
         <SpeedInsights />
+        <Analytics />
         <Toaster />
         <Nav nav={nav} lang={lang} />
 
