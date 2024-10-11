@@ -9,6 +9,7 @@ import ratelimit from '@/utils/ratelimit';
 import { resend } from '@/lib/resend';
 import CommissionArtistMail from '@/components/emails/CommissionArtistMail';
 import CommissionClientMail from '@/components/emails/CommissionClientMail';
+import { headers } from 'next/headers';
 
 export const sendCommission = actionClient
   .schema(sendCommissionSchemaFd)
@@ -16,7 +17,8 @@ export const sendCommission = actionClient
     async ({
       parsedInput: { name, email, artType, files, description, dc30ea9 },
     }) => {
-      const { limit, reset, remaining, success } = await ratelimit();
+      const ip = headers().get('x-forwarded-for');
+      const { limit, reset, remaining, success } = await ratelimit(ip!);
 
       if (!success) {
         console.error(`Exceeded ratelimit: ${limit}, ${remaining}, ${reset}`);

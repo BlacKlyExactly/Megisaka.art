@@ -6,11 +6,13 @@ import { resend } from '@/lib/resend';
 import { actionClient } from '@/lib/safe-action';
 import { sendMessageSchemaFd } from '@/schemas/sendMessageSchema';
 import ratelimit from '@/utils/ratelimit';
+import { headers } from 'next/headers';
 
 export const sendMessage = actionClient
   .schema(sendMessageSchemaFd)
   .action(async ({ parsedInput: { name, email, description, bkuXk05 } }) => {
-    const { success, limit, reset, remaining } = await ratelimit();
+    const ip = headers().get('x-forwarded-for');
+    const { success, limit, reset, remaining } = await ratelimit(ip!);
 
     if (!success) {
       console.error(`Exceeded ratelimit: ${limit}, ${remaining}, ${reset}`);
