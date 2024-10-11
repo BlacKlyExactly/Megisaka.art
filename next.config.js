@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '100mb',
+    },
+  },
   images: {
     dangerouslyAllowSVG: true,
     remotePatterns: [
