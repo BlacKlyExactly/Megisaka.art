@@ -10,9 +10,9 @@ import ratelimit from '@/utils/ratelimit';
 export const sendMessage = actionClient
   .schema(sendMessageSchemaFd)
   .action(async ({ parsedInput: { name, email, description, bkuXk05 } }) => {
-    const { exceeded, limit, reset, remaining } = await ratelimit();
+    const { success, limit, reset, remaining } = await ratelimit();
 
-    if (exceeded) {
+    if (!success) {
       console.error(`Exceeded ratelimit: ${limit}, ${remaining}, ${reset}`);
 
       return {

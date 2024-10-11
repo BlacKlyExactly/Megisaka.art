@@ -16,9 +16,9 @@ export const sendCommission = actionClient
     async ({
       parsedInput: { name, email, artType, files, description, dc30ea9 },
     }) => {
-      const { exceeded, limit, reset, remaining } = await ratelimit();
+      const { limit, reset, remaining, success } = await ratelimit();
 
-      if (exceeded) {
+      if (!success) {
         console.error(`Exceeded ratelimit: ${limit}, ${remaining}, ${reset}`);
 
         return {
