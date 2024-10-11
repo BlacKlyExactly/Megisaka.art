@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 
 import Main from '@/components/ui/section/Main';
 
+export const maxDuration = 60;
+
 export const metadata: Metadata = {
   title: 'Contact | Megisaka',
   description:

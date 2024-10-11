@@ -66,31 +66,31 @@ export const sendCommission = actionClient
             : [files]
           : [];
 
-        let assets: SanityImageAssetDocument[] = [];
-
-        for (const file of filesArr) {
-          const asset = await client.assets.upload('image', file, {
-            filename: file.name,
-          });
-
-          assets = [...assets, asset];
-
-          await client
-            .patch(document._id)
-            .setIfMissing({ attachments: [] })
-            .insert('after', 'attachments[-1]', [
-              {
-                _type: 'attachment',
-                asset: {
-                  _type: 'reference',
-                  _ref: asset._id,
-                },
-              },
-            ])
-            .commit({
-              autoGenerateArrayKeys: true,
+        const assets = await Promise.all(
+          filesArr.map(async (file) => {
+            const asset = await client.assets.upload('image', file, {
+              filename: file.name,
             });
-        }
+
+            await client
+              .patch(document._id)
+              .setIfMissing({ attachments: [] })
+              .insert('after', 'attachments[-1]', [
+                {
+                  _type: 'attachment',
+                  asset: {
+                    _type: 'reference',
+                    _ref: asset._id,
+                  },
+                },
+              ])
+              .commit({
+                autoGenerateArrayKeys: true,
+              });
+
+            return asset;
+          }),
+        );
 
         const messages = [
           resend.emails.send({

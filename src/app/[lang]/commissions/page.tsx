@@ -5,6 +5,8 @@ import Main from '@/components/ui/section/Main';
 import { fetchCommission, fetchCommissionSection } from '@/lib/sanity/requests';
 import { LanguagePageProps } from '@/utils/langPageProps';
 
+export const maxDuration = 60;
+
 export const metadata: Metadata = {
   title: 'Art Commissions | Megisaka',
   description:

@@ -15,6 +15,8 @@ import { getTranslatedText } from '@/utils/getTranslatedText';
 import { getImage } from '@/lib/sanity/getImage';
 import Section from '@/components/ui/section/Section';
 
+export const maxDuration = 60;
+
 const Home = async ({ params: { lang } }: LanguagePageProps) => {
   const { header, latestWork } = await fetchHome();
   const commissionSection = await fetchCommissionSection();
