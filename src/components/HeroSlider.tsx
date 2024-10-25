@@ -108,14 +108,16 @@ const HeroSlider = ({
           {slides.map(({ alt, url, lqip }, idx) => (
             <Image
               key={alt + url}
-              src={url}
+              src={url + '&fm=webp'}
               alt={alt}
               width={612}
               height={556}
-              priority
               placeholder="blur"
               blurDataURL={lqip}
               className="border-b-4 border-crimson pointer-events-none w-full lg:border-0 shrink-0"
+              {...(idx === 0
+                ? { priority: true }
+                : { loading: 'lazy', priority: false })}
             />
           ))}
         </div>

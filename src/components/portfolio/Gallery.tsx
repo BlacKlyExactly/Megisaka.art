@@ -35,7 +35,7 @@ const Gallery = ({ gallery }: GalleryProps) => {
         <Image
           key={alt}
           alt={alt}
-          src={src}
+          src={src + '&fm=webp'}
           width={width}
           height={height}
           loading="lazy"
