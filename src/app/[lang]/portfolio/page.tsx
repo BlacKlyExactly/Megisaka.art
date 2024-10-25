@@ -33,7 +33,7 @@ const Portfolio = async ({ params: { lang } }: LanguagePageProps) => {
         works={works.map(({ title, image, type, slug }) => ({
           title,
           type: getTranslatedText(type, lang),
-          image: getImage(image, 612, 612),
+          image: getImage(image, 500, 500),
           alt: image.alt,
           slug,
           lqip: image.asset.metadata.lqip,

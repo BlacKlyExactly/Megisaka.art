@@ -24,7 +24,7 @@ const Home = async ({ params: { lang } }: LanguagePageProps) => {
   const acceptedCommissions = commissions.filter(({ accepted }) => accepted);
 
   const heroSliderImages = header.heroSlider.map((source) => ({
-    url: getImage(source, 612, 612),
+    url: getImage(source, 500, 500),
     alt: source.alt,
     lqip: source.asset.metadata.lqip,
   }));
@@ -47,7 +47,7 @@ const Home = async ({ params: { lang } }: LanguagePageProps) => {
             works={works.map(({ title, image, type, slug }) => ({
               title,
               type: getTranslatedText(type, lang),
-              image: getImage(image, 612, 612),
+              image: getImage(image, 500, 500),
               alt: image.alt,
               slug,
               lqip: image.asset.metadata.lqip,

@@ -85,6 +85,7 @@ const Work = ({
           height={400}
           placeholder="blur"
           blurDataURL={lqip}
+          sizes="(max-width: 768px) 100vw, 33vw"
         />
       </article>
     </TransitionLink>
