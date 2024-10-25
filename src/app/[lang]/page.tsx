@@ -16,8 +16,6 @@ import Section from '@/components/ui/section/Section';
 export const maxDuration = 60;
 
 const Home = async ({ params: { lang } }: LanguagePageProps) => {
-  await sleep();
-
   const { header, latestWork } = await fetchHome();
   const commissionSection = await fetchCommissionSection();
   const commissions = await fetchCommission();
