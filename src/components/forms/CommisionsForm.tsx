@@ -150,7 +150,7 @@ const CommisionsForm = ({ form, lang }: CommissionsFormProps) => {
               name="artType"
               render={({ field }) => (
                 <Select {...register('artType')} onValueChange={field.onChange}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Select art type">
                     <SelectValue
                       placeholder={getTranslatedText(artType.placeholder, lang)}
                     />

@@ -75,8 +75,9 @@ const LanguageSelect = () => {
         className="absolute top-full mt-5 flex flex-col gap-4 z-[10000]"
         ref={langBalls}
       >
-        {flags.map(({ Flag, code }) => (
+        {flags.map(({ Flag, code, label }) => (
           <TransitionLink
+            ariaLabel={`Select ${label} language`}
             key={code}
             onClick={toggle}
             href={getUrl(code)}
@@ -170,8 +171,8 @@ const FlagEN = () => (
 );
 
 const flags = [
-  { Flag: FlagEN, code: 'en' },
-  { Flag: FlagPL, code: 'pl' },
+  { Flag: FlagEN, code: 'en', label: 'english' },
+  { Flag: FlagPL, code: 'pl', label: 'polish' },
 ];
 
 export default LanguageSelect;

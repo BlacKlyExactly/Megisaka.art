@@ -44,7 +44,11 @@ const HamburgerMenu = ({ nav, lang }: HamburgerMenuProps) => {
 
   return (
     <>
-      <button className="relative z-[1000]" onClick={toggle}>
+      <button
+        className="relative z-[1000]"
+        onClick={toggle}
+        aria-label="Toggle hamburger menu"
+      >
         <Bars />
       </button>
       <div

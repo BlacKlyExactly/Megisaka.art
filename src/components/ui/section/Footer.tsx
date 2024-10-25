@@ -2,7 +2,6 @@ import Text from '../typography/Text';
 import { Language } from '@/utils/langPageProps';
 import { fetchFooter } from '@/lib/sanity/requests';
 import { getTranslatedText } from '@/utils/getTranslatedText';
-import {} from 'lucide-react';
 
 const Footer = async ({ lang }: { lang?: Language }) => {
   const { copyright, madeby } = await fetchFooter();
@@ -26,8 +25,9 @@ const Footer = async ({ lang }: { lang?: Language }) => {
         </Text>
       </div>
       <div className="flex gap-4 flex-wrap justify-center">
-        {socials.map(({ Icon, href }) => (
+        {socials.map(({ Icon, href, label }) => (
           <a
+            aria-label={label}
             key={href}
             href={href}
             className="w-11 h-11 rounded-full border border-crimson flex items-center justify-center text-crimson"
@@ -42,6 +42,7 @@ const Footer = async ({ lang }: { lang?: Language }) => {
 
 const socials = [
   {
+    label: "Megisaka's discord",
     href: 'https://discord.gg/CkX97dt4Kj',
     Icon: (
       <svg
@@ -60,6 +61,7 @@ const socials = [
     ),
   },
   {
+    label: "Megisaka's twitter",
     href: 'https://x.com/Megisaka',
     Icon: (
       <svg
@@ -77,6 +79,7 @@ const socials = [
     ),
   },
   {
+    label: "Megisaka's instagram",
     href: 'https://www.instagram.com/Megisakaa/',
     Icon: (
       <svg
@@ -107,6 +110,7 @@ const socials = [
     ),
   },
   {
+    label: "Megisaka's art station",
     href: 'https://www.artstation.com/megisaka',
     Icon: (
       <svg
@@ -123,6 +127,7 @@ const socials = [
     ),
   },
   {
+    label: "Megisaka's deviantart",
     href: 'https://www.deviantart.com/megi-sensei',
     Icon: (
       <svg
@@ -149,6 +154,7 @@ const socials = [
     ),
   },
   {
+    label: "Megisaka's youtube",
     href: 'https://www.youtube.com/channel/UCs1s8QBvYmU7RNtkvlOQ9VA',
     Icon: (
       <svg
@@ -166,6 +172,7 @@ const socials = [
     ),
   },
   {
+    label: "Megisaka's tiktok",
     href: 'https://www.tiktok.com/@megisakaa',
     Icon: (
       <svg

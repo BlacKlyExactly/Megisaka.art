@@ -125,6 +125,7 @@ const HeroSlider = ({
       <div className="flex gap-3 w-full justify-center mt-5 lg:justify-start lg:gap-6">
         {[...Array(slides.length)].map((_, idx) => (
           <button
+            aria-label={`Select ${idx + 1} slide from image slider`}
             onClick={() => setSlide(idx)}
             key={idx}
             className={cn('h-[4px] w-7 bg-light', {

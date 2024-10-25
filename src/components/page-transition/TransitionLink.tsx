@@ -9,6 +9,7 @@ const TransitionLink = ({
   children,
   className,
   preserveLang,
+  ariaLabel,
   onClick,
 }: TransitionLinkProps & { onClick?: () => any; preserveLang?: boolean }) => {
   const { push } = useRouter();
@@ -50,7 +51,12 @@ const TransitionLink = ({
   };
 
   return (
-    <a href={href} onClick={handleTransition} className={className}>
+    <a
+      href={href}
+      onClick={handleTransition}
+      className={className}
+      aria-label={ariaLabel}
+    >
       {children}
     </a>
   );
@@ -59,6 +65,7 @@ const TransitionLink = ({
 type TransitionLinkProps = PropsWithChildren<{
   href: string;
   className?: string;
+  ariaLabel?: string;
 }>;
 
 export default TransitionLink;
