@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from 'react-hot-toast';
-import { GoogleAnalytics } from '@next/third-parties/google';
 
 import Footer from '@/components/ui/section/Footer';
 import Contact from '@/components/ui/section/Contact';
@@ -11,7 +10,6 @@ import Nav from '@/components/nav/Nav';
 import AnimatedCursor from '@/components/AnimatedCursor';
 import PageTransition from '@/components/page-transition/PageTransition';
 import SmoothScrollbar from '@/components/SmoothScrollbar';
-import Hotjar from '@/components/Hotjar';
 import { cn } from '@/utils/cn';
 import { LanguagePageProps } from '@/utils/langPageProps';
 import { fetchContact, fetchNav } from '@/lib/sanity/requests';
@@ -43,8 +41,6 @@ export default async function RootLayout({
         />
       </head>
       <body className={cn('bg-dark text-light font-spartan relative overflow')}>
-        <GoogleAnalytics gaId="GTM-59DSMJRD" />
-        <Hotjar />
         <AnimatedCursor />
         <PageTransition />
         <SmoothScrollbar />
